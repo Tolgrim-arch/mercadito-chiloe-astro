@@ -32,7 +32,7 @@ Fuente de verdad para la reconstrucción UI/UX de El Mercadito de Chiloé. Una c
 - [x] Fase 15: 404 rediseñada con `noindex` y rutas de recuperación.
 - [x] Fase 16: fuentes locales, canonical, Open Graph, JSON-LD, robots y sitemap integrados.
 - [x] Fase 17: build, estructura semántica, interacciones y overflow móvil verificados; se corrigió un overflow detectado a 320 px.
-- [ ] Fase 18: README actualizado y versión local lista; despliegue público y verificación HTTP 404 pendientes de revisión del usuario.
+- [x] Fase 18: README, revisión visual, GitHub y Vercel completados; rutas públicas, recursos y HTTP 404 verificados.
 
 **Evidencia local:** `npm run build` genera Inicio, El lugar, Carta, Planifica tu visita, Cómo llegar, Reservas, Galería heredada y 404. Navegador local confirmó un `main` y un `h1` por página, ausencia de overflow tras la corrección a 320 px, modal de platos, mapa diferido y flujo completo de Reservas demo.
 
@@ -212,19 +212,20 @@ Fuente de verdad para la reconstrucción UI/UX de El Mercadito de Chiloé. Una c
 
 ## Fase 18: rúbrica y entrega
 
-- [ ] Actualizar README con ejecución, build, fuentes y límites de la demo.
-- [ ] Crear matriz de evidencia para navegación, interacción, Tailwind, responsive y UI/UX.
-- [ ] Presentar la versión local para revisión visual.
-- [ ] Publicar en GitHub Pages sólo después de la revisión solicitada.
-- [ ] Verificar públicamente rutas, mapa, Galería heredada y 404.
+- [x] Actualizar README con ejecución, build, fuentes y límites de la demo.
+- [x] Crear matriz de evidencia para navegación, interacción, Tailwind, responsive y UI/UX.
+- [x] Presentar la versión local para revisión visual.
+- [x] Publicar en GitHub Pages sólo después de la revisión solicitada.
+- [x] Publicar la versión Astro en Vercel con configuración de rutas específica por entorno.
+- [x] Verificar públicamente Inicio, Carta, Planifica tu visita, recursos estáticos y 404.
 
 ## Criterios finales
 
-- [ ] El primer pantallazo explica qué es el restaurante y dónde está.
-- [ ] Seis páginas principales conectadas y sin enlaces rotos.
-- [ ] Planifica tu visita reemplaza Galería sin romper la URL anterior.
-- [ ] Carta, mapa, FAQ y reservas demo son accesibles y comprensibles.
-- [ ] Todo el sitio comparte componentes y estilo coherentes.
-- [ ] No existe información comercial inventada.
-- [ ] No hay overflow y el build funciona bajo la ruta base.
-- [ ] La matriz demuestra nivel excelente en la rúbrica RA2.
+- [x] El primer pantallazo explica qué es el restaurante y dónde está.
+- [x] Seis páginas principales conectadas y sin enlaces rotos.
+- [x] Planifica tu visita reemplaza Galería sin romper la URL anterior.
+- [x] Carta, mapa, FAQ y reservas demo son accesibles y comprensibles.
+- [x] Todo el sitio comparte componentes y estilo coherentes.
+- [x] No existe información comercial inventada.
+- [x] No hay overflow y el build funciona en GitHub Pages y en la raíz de Vercel.
+- [x] La matriz demuestra nivel excelente en la rúbrica RA2.
