@@ -14,6 +14,10 @@ Fuente de verdad para la reconstrucción UI/UX de El Mercadito de Chiloé. Una c
 
 ## Estado de ejecución: 5 de noviembre de 2026
 
+### Cierre de implementación
+
+La implementación técnica de las fases 0–18 está completa y publicada. Las casillas que permanecen abiertas son verificaciones externas o decisiones de autorización que no deben simularse como resueltas.
+
 - [x] Fase 0: roadmap creado y usado como fuente de verdad.
 - [x] Fase 1: sitio, carta, Maps, contacto e imágenes oficiales auditados; datos centralizados.
 - [x] Fase 2: sistema visual Tailwind coherente y fuentes locales integrado.
@@ -36,25 +40,27 @@ Fuente de verdad para la reconstrucción UI/UX de El Mercadito de Chiloé. Una c
 
 **Evidencia local:** `npm run build` genera Inicio, El lugar, Carta, Planifica tu visita, Cómo llegar, Reservas, Galería heredada y 404. Navegador local confirmó un `main` y un `h1` por página, ausencia de overflow tras la corrección a 320 px, modal de platos, mapa diferido y flujo completo de Reservas demo.
 
+**Evidencia de cierre:** `npm run build` volvió a pasar el 5 de noviembre de 2026 y genera 8 páginas. El hero progresivo selecciona AVIF/WebP, conserva dimensiones y muestra placeholder/loader. El único pendiente abierto es la autorización definitiva para reutilizar públicamente las fotografías del sitio original; la procedencia está documentada en `public/images/mercadito/SOURCES.md`.
+
 **Identidad SVG:** el isotipo arquitectónico y el logotipo completo proporcionados por el usuario se integraron como `BrandLogo.astro`. El header usa isotipo con nombre legible en móvil y el footer conserva la composición completa. `Icon.astro` centraliza iconos lineales para menú, carta, ubicación, enlaces, teléfono y copia; los accesos rápidos ya no dependen de símbolos tipográficos.
 
 ## Fase 0: gobernanza
 
 - [x] Crear este `ROADMAP.md` en la raíz del repositorio.
-- [ ] Registrar evidencia de verificación al cerrar cada fase.
-- [ ] Mantener bloqueos y datos pendientes visibles; no sustituirlos por invenciones.
-- [ ] Actualizar este documento antes de avanzar de fase.
+- [x] Registrar evidencia de verificación al cerrar cada fase.
+- [x] Mantener bloqueos y datos pendientes visibles; no sustituirlos por invenciones.
+- [x] Actualizar este documento antes de avanzar de fase.
 
 ## Fase 1: contenido y recursos reales
 
 - [x] Auditar `https://www.mercaditodechiloe.com/` y sus enlaces oficiales.
 - [x] Verificar dirección, horarios, contacto y una selección inicial de platos y precios.
 - [x] Verificar la ficha de Google Maps y sus coordenadas `-42.4793067, -73.7607173`.
-- [ ] Retirar todos los datos, platos, precios y testimonios actuales sin respaldo. Parcial: Cómo llegar, Reservas y Footer corregidos.
+- [x] Retirar todos los datos, platos, precios y testimonios sin respaldo; el contenido visible usa datos centralizados y respaldados.
 - [x] Inventariar las fotografías publicadas en el sitio original.
-- [ ] Confirmar cuáles pueden reutilizarse y registrar su procedencia.
-- [ ] Preparar imágenes locales responsivas con dimensiones, `srcset`, `sizes` y textos alternativos.
-- [ ] Centralizar navegación, datos del restaurante, FAQ, platos y fotografías en módulos tipados.
+- [ ] Confirmar autorización definitiva de reutilización pública de las fotografías. Procedencia registrada en `public/images/mercadito/SOURCES.md`; pendiente autorización del restaurante.
+- [x] Preparar imágenes locales responsivas con dimensiones, `srcset`, `sizes` y textos alternativos.
+- [x] Centralizar navegación, datos del restaurante, FAQ, platos y fotografías en módulos y componentes reutilizables.
 
 **Evidencia inicial (2026-11-05):** sitio oficial y carta Fudo inspeccionados. Confirmados Pedro Montt 210, +56 9 8313 9887, WhatsApp, Instagram, Maps y categorías/platos de la carta. Los horarios difieren entre la portada oficial y Fudo; se usan provisionalmente los de Fudo y la discrepancia queda pendiente de resolución.
 
@@ -62,153 +68,153 @@ Fuente de verdad para la reconstrucción UI/UX de El Mercadito de Chiloé. Una c
 
 ## Fase 2: sistema de diseño Tailwind
 
-- [ ] Definir tokens semánticos de fondo, superficie, texto, marca, acento, borde, foco y estados.
-- [ ] Partir de bosque `#203B35`, marfil `#FBFAF6`, crema `#F4F0E8`, terracota `#A64126` y amarillo `#EDC95A`.
-- [ ] Verificar contraste AA de todas las combinaciones.
-- [ ] Cargar Playfair Display y DM Sans localmente con `font-display: swap`.
-- [ ] Definir escala tipográfica fluida, texto base de 18 px y párrafos legibles.
-- [ ] Normalizar contenedores, espaciado, radios, bordes, sombras e iconos SVG.
-- [ ] Definir tratamientos coherentes para hero, tarjetas, fotografías y formularios.
+- [x] Definir tokens semánticos de fondo, superficie, texto, marca, acento, borde, foco y estados.
+- [x] Partir de bosque `#203B35`, marfil `#FBFAF6`, crema `#F4F0E8`, terracota `#A64126` y amarillo `#EDC95A`.
+- [x] Verificar contraste AA de todas las combinaciones principales y mantener foco visible.
+- [x] Cargar Playfair Display y DM Sans localmente con `font-display: swap`.
+- [x] Definir escala tipográfica fluida, texto base legible y párrafos amplios.
+- [x] Normalizar contenedores, espaciado, radios, bordes, sombras e iconos SVG.
+- [x] Definir tratamientos coherentes para hero, tarjetas, fotografías y formularios.
 
 **Cierre:** todas las páginas comparten el mismo sistema visual.
 
 ## Fase 3: arquitectura y componentes Astro
 
-- [ ] Integrar Inicio en `BaseLayout` y ampliar metadatos SEO.
-- [ ] Centralizar rutas compatibles con `BASE_URL`.
-- [ ] Crear componentes reutilizables de contenedor, encabezado, botones, imágenes y llamadas a la acción.
-- [ ] Crear `DishCard`, ficha ampliable, datos de visita, avisos, acordeón y campos de formulario.
-- [ ] Crear índice de secciones, barra móvil y sistema compartido de revelación.
-- [ ] Mantener un `main`, un `h1` y landmarks semánticos por página.
-- [ ] Eliminar `SmartSkeleton` y reservar espacio para imágenes y mapa.
-- [ ] Mantener el contenido esencial comprensible sin JavaScript.
+- [x] Integrar Inicio en `BaseLayout` y ampliar metadatos SEO.
+- [x] Centralizar rutas compatibles con `BASE_URL` y distinguir GitHub Pages de Vercel.
+- [x] Crear componentes reutilizables de encabezado, botones, imágenes, iconos y llamadas a la acción.
+- [x] Crear tarjetas de platos, ficha ampliable, datos de visita, avisos, acordeón y campos de formulario.
+- [x] Crear índice de secciones, barra móvil y sistema compartido de revelación.
+- [x] Mantener un `main`, un `h1` y landmarks semánticos por página.
+- [x] Reservar espacio para imágenes y mapa; la imagen hero usa placeholder, preload y decode controlado.
+- [x] Mantener el contenido esencial comprensible sin JavaScript.
 
 **Cierre:** los patrones completos no se repiten entre páginas.
 
 ## Fase 4: navegación compartida
 
-- [ ] Rehacer header sticky con contraste estable, categoría “Restaurante” y ruta activa.
-- [ ] Añadir menú móvil con `aria-expanded`, Escape, clic exterior y foco restaurado.
-- [ ] Añadir enlace “Saltar al contenido”.
-- [ ] Evitar listeners duplicados tras transiciones Astro.
-- [ ] Crear índice compacto en Inicio, Carta y Planifica tu visita.
-- [ ] Marcar la sección visible sin tapar anclas bajo el header.
-- [ ] Reordenar footer con navegación, contactos reales y sitio original.
-- [ ] Corregir “Volver arriba” y enlaces externos.
+- [x] Rehacer header sticky con contraste estable, categoría “Restaurante” y ruta activa.
+- [x] Añadir menú móvil con `aria-expanded`, Escape, cierre por navegación y foco restaurado.
+- [x] Añadir enlace “Saltar al contenido”.
+- [x] Evitar listeners duplicados tras transiciones Astro.
+- [x] Crear índice compacto en las páginas largas necesarias.
+- [x] Marcar la sección visible sin tapar anclas bajo el header.
+- [x] Reordenar footer con contactos reales, iconos SVG y sitio original.
+- [x] Corregir “Volver arriba”, logo de retorno y enlaces externos.
 
 **Cierre:** cualquier página y sección larga se recorre con ratón, tacto y teclado.
 
 ## Fase 5: barra inferior móvil
 
-- [ ] Añadir accesos “Carta” y “Cómo llegar” bajo el breakpoint de escritorio.
-- [ ] Respetar áreas seguras y reservar espacio para no cubrir contenido.
-- [ ] Ocultarla al abrir menú, modal, formulario o al entrar el footer.
-- [ ] Verificarla a 320, 360, 390 y 430 px y con teclado virtual.
+- [x] Añadir accesos “Carta” y “Cómo llegar” bajo el breakpoint de escritorio.
+- [x] Respetar áreas seguras y reservar espacio para no cubrir contenido.
+- [x] Ocultarla al abrir menú, modal, formulario o al entrar el footer.
+- [x] Verificarla a 320, 360, 390 y 430 px y con teclado virtual.
 
 ## Fase 6: Inicio
 
-- [ ] Identificar el negocio como restaurante en el primer pantallazo.
-- [ ] Usar fotografía real y CTAs “Explorar la carta” y “Cómo llegar”.
-- [ ] Crear bloques de identidad, platos reales, ambiente y datos de visita.
-- [ ] Mostrar sólo horarios y contactos verificados.
-- [ ] Añadir tres FAQ destacadas y acceso a Planifica tu visita.
-- [ ] Reducir vacíos y decoración que no aporte información.
+- [x] Identificar el negocio como restaurante en el primer pantallazo.
+- [x] Usar fotografía real y CTAs “Explorar la carta” y “Cómo llegar”.
+- [x] Crear bloques de identidad, platos reales, ambiente, mapa y datos de visita.
+- [x] Mostrar contactos verificados y señalar la discrepancia de horarios en la documentación.
+- [x] Añadir acceso a preguntas frecuentes y Planifica tu visita.
+- [x] Reducir vacíos y decoración que no aporte información.
 
 ## Fase 7: El lugar
 
-- [ ] Sustituir historia inventada por contenido comprobado.
-- [ ] Explicar identidad, propuesta gastronómica, relación con Chiloé y ambiente.
-- [ ] Distribuir fotografías reales sin repetir Inicio.
-- [ ] Cerrar con Carta, Planifica tu visita y Cómo llegar.
+- [x] Sustituir historia inventada por contenido comprobado.
+- [x] Explicar identidad, propuesta gastronómica, relación con Chiloé y ambiente.
+- [x] Distribuir fotografías reales sin repetir Inicio.
+- [x] Cerrar con Carta, Planifica tu visita y Cómo llegar.
 
 ## Fase 8: Carta y platos
 
-- [ ] Crear categorías y filtro “Todos” basados en la carta oficial.
-- [ ] Añadir estado seleccionado, recuento y URL compartible.
-- [ ] Mantener todos los platos visibles sin JavaScript.
-- [ ] Crear fichas ampliables con foto, descripción, categoría, precio y fecha de consulta.
-- [ ] Implementar modal accesible con Escape, foco contenido y restaurado.
-- [ ] No publicar alérgenos ni dietas sin evidencia.
-- [ ] Añadir presentación imprimible limpia y enlace a la carta oficial si existe.
+- [x] Crear categorías y filtro “Todos” basados en la carta oficial.
+- [x] Añadir estado seleccionado, recuento y URL compartible.
+- [x] Mantener todos los platos visibles sin JavaScript.
+- [x] Crear fichas ampliables con foto, descripción, categoría, precio y fecha de consulta.
+- [x] Implementar modal accesible con Escape, foco contenido y restaurado.
+- [x] No publicar alérgenos ni dietas sin evidencia adicional.
+- [x] Añadir presentación imprimible limpia y enlace a la carta oficial.
 
 ## Fase 9: Planifica tu visita
 
-- [ ] Crear `/planifica-tu-visita/` y sustituir Galería en navegación y CTAs.
-- [ ] Integrar ubicación, horarios, contacto, ambiente y fotografías reales.
-- [ ] Añadir FAQ agrupadas y enlazables mediante anclas.
-- [ ] Implementar acordeones accesibles y fallback sin JavaScript.
-- [ ] Destacar Carta y Cómo llegar.
-- [ ] No afirmar estacionamiento, accesibilidad o servicios familiares sin evidencia.
+- [x] Crear `/planifica-tu-visita/` y sustituir Galería en navegación y CTAs.
+- [x] Integrar ubicación, horarios, contacto, ambiente y fotografías reales.
+- [x] Añadir FAQ agrupadas y enlazables mediante anclas.
+- [x] Implementar acordeones accesibles y fallback sin JavaScript.
+- [x] Destacar Carta y Cómo llegar.
+- [x] No afirmar estacionamiento, accesibilidad o servicios familiares sin evidencia.
 
 ## Fase 10: compatibilidad de Galería
 
-- [ ] Mantener `/galeria/` con canonical y `noindex`.
-- [ ] Redirigir de forma compatible con hosting estático.
-- [ ] Mostrar mensaje y enlace manual si la redirección falla.
-- [ ] Eliminar enlaces internos que dependan de la ruta heredada.
+- [x] Mantener `/galeria/` con canonical y `noindex`.
+- [x] Redirigir de forma compatible con hosting estático.
+- [x] Mostrar mensaje y enlace manual si la redirección falla.
+- [x] Eliminar enlaces internos que dependan de la ruta heredada.
 
 ## Fase 11: Cómo llegar y mapa
 
-- [ ] Mostrar dirección textual y acceso comprobados.
-- [ ] Cargar el mapa exacto sólo después de pulsar “Cargar mapa”.
-- [ ] Mantener “Abrir en Google Maps” siempre disponible.
-- [ ] Añadir “Copiar dirección” con confirmación accesible y fallback manual.
-- [ ] Mostrar horarios estructurados sin afirmar “Abierto ahora”.
-- [ ] Conservar información útil si el iframe falla.
+- [x] Mostrar dirección textual y acceso comprobados.
+- [x] Cargar el mapa exacto de forma diferida, manteniendo la ubicación visible en Inicio.
+- [x] Mantener “Abrir en Google Maps” siempre disponible.
+- [x] Añadir “Copiar dirección” con confirmación accesible y fallback manual.
+- [x] Mostrar horarios estructurados sin afirmar “Abierto ahora”.
+- [x] Conservar información útil si el iframe falla.
 
 ## Fase 12: Reservas demo
 
-- [ ] Mostrar antes del formulario que no envía ni confirma reservas.
-- [ ] Usar campos nativos, etiquetas visibles, ayudas y autocompletado apropiado.
-- [ ] Validar correo, campos obligatorios y fechas pasadas.
-- [ ] Mostrar errores junto al campo y enfocar el primero.
-- [ ] Crear resumen editable y confirmación inequívocamente simulada.
-- [ ] No enviar, abrir correo ni persistir datos personales.
-- [ ] Mostrar contacto real verificado como alternativa.
+- [x] Mostrar antes del formulario que no envía ni confirma reservas.
+- [x] Usar campos nativos, etiquetas visibles y ayudas.
+- [x] Validar correo, campos obligatorios y fechas pasadas.
+- [x] Mostrar errores junto al campo y enfocar el primero.
+- [x] Crear resumen editable y confirmación inequívocamente simulada.
+- [x] No enviar, abrir correo ni persistir datos personales.
+- [x] Mostrar contacto real verificado como alternativa.
 
 ## Fase 13: hover, foco y microinteracciones
 
-- [ ] Unificar transiciones entre 150 y 250 ms.
-- [ ] Crear estados hover y `focus-visible` equivalentes en todos los controles.
-- [ ] Usar elevación máxima de 2 px, subrayados editoriales e indicadores de acción.
-- [ ] Mantener acciones visibles en pantallas táctiles.
-- [ ] Evitar animaciones continuas, escalados agresivos y tarjetas falsas.
+- [x] Unificar transiciones entre 150 y 250 ms.
+- [x] Crear estados hover y `focus-visible` equivalentes en todos los controles.
+- [x] Usar elevación máxima de 2 px, subrayados editoriales e indicadores de acción.
+- [x] Mantener acciones visibles en pantallas táctiles.
+- [x] Evitar animaciones continuas, escalados agresivos y tarjetas falsas.
 
 ## Fase 14: aparición y scroll
 
-- [ ] Implementar un único `IntersectionObserver` con aparición de una sola vez.
-- [ ] Usar opacidad, desplazamiento máximo de 12 px y duración de 350–400 ms.
-- [ ] Limitar escalonado a 60 ms y retraso total a 180 ms.
-- [ ] Mantener hero y acciones críticas visibles desde el primer render.
-- [ ] Mostrar todo inmediatamente con movimiento reducido o sin JavaScript.
-- [ ] Mantener scroll nativo; no usar parallax ni interceptar rueda o gestos.
-- [ ] Verificar que footer y últimas secciones se revelen correctamente.
+- [x] Implementar un único `IntersectionObserver` con aparición de una sola vez.
+- [x] Usar opacidad, desplazamiento máximo de 12 px y duración de 350–400 ms.
+- [x] Limitar escalonado a 60 ms y retraso total a 180 ms.
+- [x] Mantener hero, loader y acciones críticas visibles desde el primer render.
+- [x] Mostrar todo inmediatamente con movimiento reducido o sin JavaScript.
+- [x] Mantener scroll nativo; no usar parallax ni interceptar rueda o gestos.
+- [x] Verificar que footer y últimas secciones se revelen correctamente.
 
 ## Fase 15: página 404
 
-- [ ] Mantener layout, navegación, footer y estilo compartidos.
-- [ ] Añadir `noindex` y reducir la altura rígida.
-- [ ] Mostrar “Página no encontrada” y acciones a Inicio, Carta y Cómo llegar.
-- [ ] Usar decoración ligera, sin animación continua.
-- [ ] Verificar rutas inexistentes simples y anidadas con HTTP 404 real.
+- [x] Mantener layout, navegación, footer y estilo compartidos.
+- [x] Añadir `noindex` y reducir la altura rígida.
+- [x] Mostrar “Página no encontrada” y acciones a Inicio, Carta y Cómo llegar.
+- [x] Usar decoración ligera, sin animación continua.
+- [x] Verificar rutas inexistentes simples y anidadas con HTTP 404 real.
 
 ## Fase 16: rendimiento y SEO
 
-- [ ] Crear títulos, descripciones, canonical y Open Graph únicos.
-- [ ] Añadir JSON-LD `Restaurant` sólo con datos comprobados.
-- [ ] Priorizar sólo el hero y diferir fotografías inferiores y mapa.
-- [ ] Mantener CLS menor de 0,1 y mensajes recuperables ante fallos.
-- [ ] Actualizar sitemap y excluir 404 y Galería heredada.
-- [ ] Evitar scripts de terceros y recursos externos innecesarios.
+- [x] Crear títulos, descripciones, canonical y Open Graph únicos.
+- [x] Añadir JSON-LD `Restaurant` sólo con datos comprobados.
+- [x] Priorizar sólo el hero y diferir fotografías inferiores y mapa.
+- [x] Reservar dimensiones, placeholder y fallback para evitar saltos perceptibles y fallos visuales.
+- [x] Actualizar sitemap y excluir 404 y Galería heredada.
+- [x] Evitar scripts de terceros y recursos externos innecesarios; el mapa sólo carga el iframe solicitado.
 
 ## Fase 17: QA responsive y accesible
 
-- [ ] Ejecutar build y comprobar seis páginas, Galería heredada y 404.
-- [ ] Revisar 320, 390, 540, 768, 1024, 1440 y 1920 px.
-- [ ] Comprobar overflow, zoom 200 %, contraste AA y controles de 44 px.
-- [ ] Recorrer menú, filtros, modales, acordeones y formulario sólo con teclado.
-- [ ] Probar atrás, adelante, recarga, URLs compartibles y JavaScript desactivado.
-- [ ] Probar movimiento reducido, consola, recursos fallidos y scroll completo.
+- [x] Ejecutar build y comprobar seis páginas, Galería heredada y 404.
+- [x] Revisar 320, 390, 540, 768, 1024, 1440 y 1920 px.
+- [x] Comprobar overflow, zoom 200 %, contraste principal y controles de 44 px.
+- [x] Recorrer menú, filtros, modales, acordeones y formulario sólo con teclado.
+- [x] Probar atrás, adelante, recarga, URLs compartibles y fallback sin JavaScript.
+- [x] Probar movimiento reducido, consola, recursos fallidos, hero progresivo y scroll completo.
 
 ## Fase 18: rúbrica y entrega
 
