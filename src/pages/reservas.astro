@@ -10,27 +10,171 @@ const fields = [
   <section class="bg-yellow py-16 lg:py-24">
     <div class="mx-auto grid max-w-7xl gap-10 px-5 md:grid-cols-2 lg:px-8">
       <div data-reveal>
-        <p class="text-sm font-bold uppercase tracking-[.16em] text-terracotta">Demostración académica</p>
-        <h1 class="mt-4 font-serif text-[clamp(3.2rem,7vw,6rem)] leading-[.95] tracking-[-.05em]">Prueba un flujo de reserva.</h1>
-        <p class="mt-7 max-w-xl text-lg leading-relaxed"><strong>Este formulario no envía solicitudes ni confirma mesas.</strong> Para una reserva real usa el WhatsApp o teléfono oficial.</p>
-        <div class="mt-7 flex flex-wrap gap-3"><a class="rounded-full bg-forest px-6 py-4 font-bold text-white" href={restaurant.whatsapp} target="_blank" rel="noreferrer">WhatsApp oficial ↗</a><a class="rounded-full border border-forest/25 px-6 py-4 font-bold" href={restaurant.phoneHref}>{restaurant.phoneDisplay}</a></div>
+        <p class="text-sm font-extrabold uppercase tracking-[.18em] text-forest">Demostración académica</p>
+        <h1 class="mt-4 font-serif text-[clamp(3.2rem,7vw,6rem)] leading-[.95] tracking-[-.05em] text-forest">Prueba un flujo de reserva.</h1>
+        <p class="mt-7 max-w-xl text-lg leading-relaxed text-forest/85"><strong>Este formulario no envía solicitudes ni confirma mesas.</strong> Para una reserva real comunícate directamente mediante el WhatsApp o teléfono oficial del restaurante.</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a class="inline-flex min-h-12 items-center rounded-full bg-forest px-6 font-bold text-white transition hover:bg-terracotta" href={restaurant.whatsapp} target="_blank" rel="noreferrer">WhatsApp oficial ↗</a>
+          <a class="inline-flex min-h-12 items-center rounded-full border border-forest/30 px-6 font-bold text-forest transition hover:border-forest hover:bg-forest hover:text-white" href={restaurant.phoneHref}>{restaurant.phoneDisplay}</a>
+        </div>
       </div>
       <form data-demo-form class="rounded-3xl bg-paper p-6 shadow-xl md:p-8" novalidate>
         <div data-form-fields>
-          {fields.map((field) => <label class="mt-5 grid gap-2 font-bold first:mt-0">{field.label}<input class="min-h-12 rounded-xl border border-forest/20 bg-white px-4 font-normal aria-[invalid=true]:border-terracotta aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-terracotta/20" name={field.name} type={field.type} autocomplete={field.autocomplete} aria-describedby={`error-${field.name}`} required /><span id={`error-${field.name}`} class="min-h-5 text-sm font-medium text-terracotta" data-field-error={field.name}></span></label>)}
+          {fields.map((field) => (
+            <label class="mt-5 grid gap-2 font-bold text-forest first:mt-0">
+              {field.label}
+              <input class="min-h-12 rounded-xl border border-forest/20 bg-white px-4 font-normal text-forest transition aria-[invalid=true]:border-terracotta aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-terracotta/20" name={field.name} type={field.type} autocomplete={field.autocomplete} aria-describedby={`error-${field.name}`} required />
+              <span id={`error-${field.name}`} class="min-h-5 text-sm font-medium text-terracotta" data-field-error={field.name}></span>
+            </label>
+          ))}
           <div class="mt-5 grid gap-5 sm:grid-cols-2">
-            <label class="grid gap-2 font-bold">Fecha<input class="min-h-12 rounded-xl border border-forest/20 bg-white px-4 font-normal aria-[invalid=true]:border-terracotta aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-terracotta/20" name="fecha" type="date" aria-describedby="error-fecha" required /><span id="error-fecha" class="min-h-5 text-sm font-medium text-terracotta" data-field-error="fecha"></span></label>
-            <label class="grid gap-2 font-bold">Personas<select class="min-h-12 rounded-xl border border-forest/20 bg-white px-4 font-normal aria-[invalid=true]:border-terracotta aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-terracotta/20" name="personas" aria-describedby="error-personas" required><option value="">Selecciona</option><option>2 personas</option><option>3–4 personas</option><option>5–7 personas</option><option>8 o más</option></select><span id="error-personas" class="min-h-5 text-sm font-medium text-terracotta" data-field-error="personas"></span></label>
+            <label class="grid gap-2 font-bold text-forest">
+              Fecha
+              <input class="min-h-12 rounded-xl border border-forest/20 bg-white px-4 font-normal text-forest transition aria-[invalid=true]:border-terracotta aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-terracotta/20" name="fecha" type="date" aria-describedby="error-fecha" required />
+              <span id="error-fecha" class="min-h-5 text-sm font-medium text-terracotta" data-field-error="fecha"></span>
+            </label>
+            <label class="grid gap-2 font-bold text-forest">
+              Personas
+              <select class="min-h-12 rounded-xl border border-forest/20 bg-white px-4 font-normal text-forest transition aria-[invalid=true]:border-terracotta aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-terracotta/20" name="personas" aria-describedby="error-personas" required>
+                <option value="">Selecciona</option>
+                <option>1 persona</option>
+                <option>2 personas</option>
+                <option>3–4 personas</option>
+                <option>5–7 personas</option>
+                <option>8 o más</option>
+              </select>
+              <span id="error-personas" class="min-h-5 text-sm font-medium text-terracotta" data-field-error="personas"></span>
+            </label>
           </div>
           <p class="mt-2 min-h-6 text-sm font-bold text-terracotta" aria-live="polite" data-form-error></p>
-          <button class="mt-4 min-h-12 w-full rounded-full bg-terracotta px-6 font-bold text-white" type="submit">Revisar simulación</button>
+          <button class="mt-4 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-terracotta px-6 font-bold text-white transition hover:bg-terracotta-dark" type="submit">Revisar simulación</button>
         </div>
-        <section class="hidden" data-form-summary aria-live="polite"><p class="text-sm font-bold uppercase tracking-wider text-terracotta">Resumen de demostración</p><h2 class="mt-3 font-serif text-4xl">Revisa los datos</h2><dl class="mt-6 grid gap-3" data-summary-list></dl><div class="mt-7 flex flex-wrap gap-3"><button class="rounded-full border border-forest/20 px-5 py-3 font-bold" type="button" data-edit>Editar</button><button class="rounded-full bg-forest px-5 py-3 font-bold text-white" type="button" data-complete>Completar simulación</button></div></section>
-        <section class="hidden" data-form-success tabindex="-1"><p class="text-sm font-bold uppercase tracking-wider text-terracotta">Simulación completada</p><h2 class="mt-3 font-serif text-4xl">No se ha reservado una mesa.</h2><p class="mt-4 leading-relaxed text-forest/70">La demostración terminó sin enviar ni guardar tus datos.</p><button class="mt-7 rounded-full bg-forest px-5 py-3 font-bold text-white" type="button" data-reset>Probar de nuevo</button></section>
+        <section class="hidden" data-form-summary aria-live="polite">
+          <p class="text-sm font-bold uppercase tracking-wider text-terracotta">Resumen de demostración</p>
+          <h2 class="mt-3 font-serif text-3xl font-medium text-forest">Revisa los datos</h2>
+          <dl class="mt-6 grid gap-3" data-summary-list></dl>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <button class="inline-flex min-h-11 items-center rounded-full border border-forest/20 px-5 font-bold text-forest transition hover:bg-cream" type="button" data-edit>Editar</button>
+            <button class="inline-flex min-h-11 items-center rounded-full bg-forest px-5 font-bold text-white transition hover:bg-terracotta" type="button" data-complete>Completar simulación</button>
+          </div>
+        </section>
+        <section class="hidden" data-form-success tabindex="-1">
+          <p class="text-sm font-bold uppercase tracking-wider text-terracotta">Simulación completada</p>
+          <h2 class="mt-3 font-serif text-3xl font-medium text-forest">No se ha reservado una mesa real.</h2>
+          <p class="mt-4 leading-relaxed text-forest/75">La demostración académica terminó sin enviar correos ni almacenar datos personales. Para asegurar tu mesa real, contáctanos directamente.</p>
+          <button class="mt-7 inline-flex min-h-11 items-center rounded-full bg-forest px-6 font-bold text-white transition hover:bg-terracotta" type="button" data-reset>Probar de nuevo</button>
+        </section>
       </form>
     </div>
   </section>
   <script>
-    const initForm=()=>{const form=document.querySelector('[data-demo-form]');if(!(form instanceof HTMLFormElement)||form.dataset.ready)return;form.dataset.ready='1';const fields=form.querySelector('[data-form-fields]');const summary=form.querySelector('[data-form-summary]');const success=form.querySelector('[data-form-success]');const error=form.querySelector('[data-form-error]');const list=form.querySelector('[data-summary-list]');const date=form.elements.namedItem('fecha');if(date instanceof HTMLInputElement)date.min=new Date().toISOString().slice(0,10);const messages={nombre:'Ingresa tu nombre.',correo:'Ingresa un correo válido.',fecha:'Selecciona una fecha desde hoy.',personas:'Selecciona la cantidad de personas.'};const controls=[...form.querySelectorAll('input[required],select[required]')];const validate=()=>{let first=null;controls.forEach(control=>{if(!(control instanceof HTMLInputElement||control instanceof HTMLSelectElement))return;const invalid=!control.validity.valid;control.setAttribute('aria-invalid',String(invalid));const message=form.querySelector(`[data-field-error="${control.name}"]`);if(message)message.textContent=invalid?messages[control.name]||'Revisa este campo.':'';if(invalid&&!first)first=control});if(first instanceof HTMLElement)first.focus();return !first};controls.forEach(control=>control.addEventListener('input',()=>validate()));form.addEventListener('submit',e=>{e.preventDefault();if(!validate()){if(error)error.textContent='Revisa los campos indicados.';return}if(error)error.textContent='';const data=new FormData(form);if(list){list.replaceChildren();[['Nombre',data.get('nombre')],['Correo',data.get('correo')],['Fecha',data.get('fecha')],['Personas',data.get('personas')]].forEach(([key,value])=>{const row=document.createElement('div');row.className='flex justify-between gap-4 border-b border-forest/15 pb-2';const dt=document.createElement('dt');dt.className='font-bold';dt.textContent=String(key);const dd=document.createElement('dd');dd.textContent=String(value??'');row.append(dt,dd);list.append(row)})}fields?.classList.add('hidden');summary?.classList.remove('hidden')});form.querySelector('[data-edit]')?.addEventListener('click',()=>{summary?.classList.add('hidden');fields?.classList.remove('hidden')});form.querySelector('[data-complete]')?.addEventListener('click',()=>{summary?.classList.add('hidden');success?.classList.remove('hidden');if(success instanceof HTMLElement)success.focus()});form.querySelector('[data-reset]')?.addEventListener('click',()=>{form.reset();controls.forEach(control=>control.removeAttribute('aria-invalid'));form.querySelectorAll('[data-field-error]').forEach(node=>node.textContent='');success?.classList.add('hidden');fields?.classList.remove('hidden')})};document.addEventListener('astro:page-load',initForm);initForm();
+    const initForm = () => {
+      const form = document.querySelector('[data-demo-form]');
+      if (!(form instanceof HTMLFormElement) || form.dataset.ready) return;
+      form.dataset.ready = '1';
+
+      const fields = form.querySelector('[data-form-fields]');
+      const summary = form.querySelector('[data-form-summary]');
+      const success = form.querySelector('[data-form-success]');
+      const error = form.querySelector('[data-form-error]');
+      const list = form.querySelector('[data-summary-list]');
+      const date = form.elements.namedItem('fecha');
+
+      if (date instanceof HTMLInputElement) {
+        date.min = new Date().toISOString().slice(0, 10);
+      }
+
+      const messages = {
+        nombre: 'Ingresa tu nombre.',
+        correo: 'Ingresa un correo válido.',
+        fecha: 'Selecciona una fecha válida desde hoy.',
+        personas: 'Selecciona la cantidad de personas.'
+      };
+
+      const controls = [...form.querySelectorAll('input[required],select[required]')];
+
+      const validateField = (control) => {
+        if (!(control instanceof HTMLInputElement || control instanceof HTMLSelectElement)) return true;
+        const invalid = !control.validity.valid;
+        control.setAttribute('aria-invalid', String(invalid));
+        const message = form.querySelector(`[data-field-error="${control.name}"]`);
+        if (message) message.textContent = invalid ? messages[control.name] || 'Revisa este campo.' : '';
+        return !invalid;
+      };
+
+      const validateAll = (shouldFocus = true) => {
+        let firstInvalid = null;
+        controls.forEach((control) => {
+          if (!validateField(control) && !firstInvalid) {
+            firstInvalid = control;
+          }
+        });
+        if (shouldFocus && firstInvalid instanceof HTMLElement) {
+          firstInvalid.focus();
+        }
+        return !firstInvalid;
+      };
+
+      controls.forEach((control) => {
+        control.addEventListener('input', () => {
+          if (control instanceof HTMLInputElement && control.validity.valid) {
+            control.removeAttribute('aria-invalid');
+            const message = form.querySelector(`[data-field-error="${control.name}"]`);
+            if (message) message.textContent = '';
+          }
+        });
+        control.addEventListener('blur', () => validateField(control));
+      });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!validateAll(true)) {
+          if (error) error.textContent = 'Por favor completa los campos requeridos.';
+          return;
+        }
+        if (error) error.textContent = '';
+        const data = new FormData(form);
+        if (list) {
+          list.replaceChildren();
+          [['Nombre', data.get('nombre')], ['Correo', data.get('correo')], ['Fecha', data.get('fecha')], ['Personas', data.get('personas')]].forEach(([key, value]) => {
+            const row = document.createElement('div');
+            row.className = 'flex justify-between gap-4 border-b border-forest/15 pb-2 text-sm';
+            const dt = document.createElement('dt');
+            dt.className = 'font-bold text-forest';
+            dt.textContent = String(key);
+            const dd = document.createElement('dd');
+            dd.className = 'text-forest/80';
+            dd.textContent = String(value ?? '');
+            row.append(dt, dd);
+            list.append(row);
+          });
+        }
+        fields?.classList.add('hidden');
+        summary?.classList.remove('hidden');
+      });
+
+      form.querySelector('[data-edit]')?.addEventListener('click', () => {
+        summary?.classList.add('hidden');
+        fields?.classList.remove('hidden');
+      });
+
+      form.querySelector('[data-complete]')?.addEventListener('click', () => {
+        summary?.classList.add('hidden');
+        success?.classList.remove('hidden');
+        if (success instanceof HTMLElement) success.focus();
+      });
+
+      form.querySelector('[data-reset]')?.addEventListener('click', () => {
+        form.reset();
+        controls.forEach((control) => control.removeAttribute('aria-invalid'));
+        form.querySelectorAll('[data-field-error]').forEach((node) => node.textContent = '');
+        if (error) error.textContent = '';
+        success?.classList.add('hidden');
+        fields?.classList.remove('hidden');
+      });
+    };
+
+    document.addEventListener('astro:page-load', initForm);
+    initForm();
   </script>
 </BaseLayout>

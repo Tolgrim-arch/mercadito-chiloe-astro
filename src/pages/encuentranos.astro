@@ -1,4 +1,113 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro'; import { restaurant } from '../data/restaurant'; const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import { restaurant } from '../data/restaurant';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
-<BaseLayout title="Cómo llegar | El Mercadito de Chiloé"><section class="bg-cream py-16 lg:py-24"><div class="mx-auto max-w-7xl px-5 lg:px-8" data-reveal><p class="text-sm font-bold uppercase tracking-[.16em] text-terracotta">Cómo llegar</p><h1 class="mt-4 max-w-4xl font-serif text-[clamp(3.2rem,7vw,6rem)] leading-[.95] tracking-[-.05em]">Nos vemos en Pedro Montt 210.</h1><p class="mt-7 max-w-2xl text-lg leading-relaxed text-forest/70">Encuentra el restaurante, revisa los horarios y abre la ubicación exacta en Google Maps.</p></div></section><section class="mx-auto grid max-w-7xl gap-10 px-5 py-20 md:grid-cols-2 lg:px-8"><div data-reveal><p class="text-xs font-bold uppercase tracking-wider text-terracotta">Dirección oficial</p><h2 class="mt-3 font-serif text-4xl">{restaurant.address}</h2><button class="mt-5 min-h-11 rounded-full border border-forest/20 px-5 font-bold" type="button" data-copy-address data-address={restaurant.address}>Copiar dirección</button><p class="mt-2 min-h-6 text-sm text-forest/60" aria-live="polite" data-copy-status></p><div class="mt-8 space-y-3">{restaurant.hours.map(({days,times})=><p class="flex flex-wrap justify-between gap-3 border-b border-forest/15 pb-3"><strong>{days}</strong><span>{times}</span></p>)}</div><div class="mt-8 flex flex-wrap gap-3"><a class="rounded-full bg-forest px-6 py-4 font-bold text-white" href={restaurant.maps} target="_blank" rel="noreferrer">Abrir Google Maps ↗</a><a class="rounded-full border border-forest/20 px-6 py-4 font-bold" href={restaurant.phoneHref}>{restaurant.phoneDisplay}</a></div><p class="mt-6 text-xs text-forest/55">{restaurant.sourceNote}</p></div><div data-reveal class="overflow-hidden rounded-3xl bg-forest text-white"><div class="grid min-h-[420px] place-items-center p-8 text-center" data-map-placeholder><div><p class="font-serif text-4xl">Mapa del restaurante</p><p class="mx-auto mt-4 max-w-sm text-white/70">El mapa se carga sólo cuando lo solicitas. La ubicación externa siempre permanece disponible.</p><button class="mt-6 min-h-12 rounded-full bg-yellow px-6 font-bold text-forest" type="button" data-load-map>Cargar mapa</button></div></div></div></section><section class="mx-auto max-w-7xl px-5 pb-20 lg:px-8"><img data-reveal class="aspect-[16/7] w-full rounded-3xl object-cover" src={`${base}/images/mercadito/plato-01.jpg`} alt="Botes tradicionales en la costa de Chiloé" width="1024" height="768" loading="lazy" /></section><script>const initMap=()=>{const button=document.querySelector('[data-load-map]');const holder=document.querySelector('[data-map-placeholder]');if(!(button instanceof HTMLButtonElement)||!(holder instanceof HTMLElement)||button.dataset.ready)return;button.dataset.ready='1';button.addEventListener('click',()=>{const iframe=document.createElement('iframe');iframe.title='Mapa de El Mercadito de Chiloé';iframe.loading='lazy';iframe.className='h-[420px] w-full border-0';iframe.src='https://www.google.com/maps?q=-42.4793067,-73.7607173&z=17&output=embed';holder.replaceWith(iframe)})};const initCopy=()=>{const button=document.querySelector('[data-copy-address]');const status=document.querySelector('[data-copy-status]');if(!(button instanceof HTMLButtonElement)||!(status instanceof HTMLElement)||button.dataset.ready)return;button.dataset.ready='1';button.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(button.dataset.address||'');status.textContent='Dirección copiada.'}catch{status.textContent='No se pudo copiar. Selecciona la dirección mostrada arriba.'}})};document.addEventListener('astro:page-load',()=>{initMap();initCopy()});initMap();initCopy();</script></BaseLayout>
+<BaseLayout title="Cómo llegar | El Mercadito de Chiloé" description="Encuentra El Mercadito de Chiloé en Pedro Montt 210, Castro: mapa interactivo, horarios oficiales, teléfono y acceso directo a Google Maps.">
+  <section class="bg-cream py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8" data-reveal>
+      <p class="text-sm font-bold uppercase tracking-[.16em] text-terracotta">Ubicación y llegada</p>
+      <h1 class="mt-4 max-w-4xl font-serif text-[clamp(3.2rem,7vw,6rem)] leading-[.95] tracking-[-.05em] text-forest">Nos vemos en Pedro Montt 210.</h1>
+      <p class="mt-7 max-w-2xl text-lg leading-relaxed text-forest/75">Encuentra el restaurante frente al puerto de Castro, revisa los horarios oficiales y abre las indicaciones en tu aplicación preferida.</p>
+    </div>
+  </section>
+
+  <section class="mx-auto grid max-w-7xl gap-12 px-5 py-20 md:grid-cols-2 lg:px-8">
+    <div data-reveal class="flex flex-col justify-between">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-wider text-terracotta">Dirección oficial</p>
+        <h2 class="mt-3 font-serif text-4xl font-medium text-forest">{restaurant.address}</h2>
+        <div class="mt-5 flex items-center gap-3">
+          <button class="inline-flex min-h-11 items-center rounded-full border border-forest/20 px-5 font-bold text-forest transition hover:border-terracotta hover:bg-cream" type="button" data-copy-address data-address={restaurant.address}>
+            Copiar dirección
+          </button>
+          <span class="text-sm font-semibold text-terracotta" aria-live="polite" data-copy-status></span>
+        </div>
+
+        <div class="mt-8 space-y-3 border-t border-forest/15 pt-6">
+          <p class="text-xs font-bold uppercase tracking-wider text-forest/60">Horarios de atención:</p>
+          {restaurant.hours.map(({ days, times }) => (
+            <p class="flex flex-wrap justify-between gap-3 border-b border-forest/10 pb-2 text-sm">
+              <strong class="font-bold text-forest">{days}</strong>
+              <span class="text-forest/80">{times}</span>
+            </p>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <div class="flex flex-wrap gap-4">
+          <a class="inline-flex min-h-12 items-center rounded-full bg-forest px-6 font-bold text-white transition hover:bg-terracotta" href={restaurant.maps} target="_blank" rel="noreferrer">Abrir Google Maps ↗</a>
+          <a class="inline-flex min-h-12 items-center rounded-full border border-forest/25 px-6 font-bold text-forest transition hover:bg-cream" href={restaurant.phoneHref}>{restaurant.phoneDisplay}</a>
+        </div>
+        <p class="mt-6 text-xs text-forest/60">{restaurant.sourceNote}</p>
+      </div>
+    </div>
+
+    <div data-reveal class="overflow-hidden rounded-3xl bg-forest shadow-xl text-white">
+      <div class="grid min-h-[420px] place-items-center p-8 text-center" data-map-placeholder>
+        <div>
+          <p class="font-serif text-4xl">Mapa del restaurante</p>
+          <p class="mx-auto mt-4 max-w-sm text-white/80">El mapa interactivo se carga solo cuando lo solicitas para optimizar tu conexión y privacidad. La ubicación externa permanece siempre disponible.</p>
+          <button class="mt-6 inline-flex min-h-12 items-center rounded-full bg-yellow px-6 font-bold text-forest transition hover:bg-yellow/90" type="button" data-load-map>
+            Cargar mapa interactivo
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-5 pb-20 lg:px-8">
+    <div data-reveal class="overflow-hidden rounded-3xl shadow-xl">
+      <ResponsiveImage name="exterior-01" class="aspect-[16/7] w-full rounded-3xl object-cover" alt="Vista exterior y entorno marítimo en Castro, Chiloé" width={1024} height={448} loading="lazy" />
+    </div>
+  </section>
+
+  <script>
+    const initMap = () => {
+      const button = document.querySelector('[data-load-map]');
+      const holder = document.querySelector('[data-map-placeholder]');
+      if (!(button instanceof HTMLButtonElement) || !(holder instanceof HTMLElement) || button.dataset.ready) return;
+      button.dataset.ready = '1';
+
+      button.addEventListener('click', () => {
+        const iframe = document.createElement('iframe');
+        iframe.title = 'Mapa de ubicación de El Mercadito de Chiloé en Castro';
+        iframe.loading = 'lazy';
+        iframe.className = 'h-[420px] w-full border-0 rounded-3xl';
+        iframe.tabIndex = 0;
+        iframe.src = 'https://www.google.com/maps?q=-42.4793067,-73.7607173&z=17&output=embed';
+        holder.replaceChildren(iframe);
+        iframe.focus();
+      });
+    };
+
+    const initCopy = () => {
+      const button = document.querySelector('[data-copy-address]');
+      const status = document.querySelector('[data-copy-status]');
+      if (!(button instanceof HTMLButtonElement) || !(status instanceof HTMLElement) || button.dataset.ready) return;
+      button.dataset.ready = '1';
+
+      let timer;
+      button.addEventListener('click', async () => {
+        clearTimeout(timer);
+        try {
+          await navigator.clipboard.writeText(button.dataset.address || '');
+          status.textContent = 'Dirección copiada.';
+          timer = setTimeout(() => { status.textContent = ''; }, 3500);
+        } catch {
+          status.textContent = 'No se pudo copiar automáticamente.';
+          timer = setTimeout(() => { status.textContent = ''; }, 3500);
+        }
+      });
+    };
+
+    document.addEventListener('astro:page-load', () => {
+      initMap();
+      initCopy();
+    });
+    initMap();
+    initCopy();
+  </script>
+</BaseLayout>

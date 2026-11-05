@@ -9,7 +9,7 @@ for (const file of pages.filter((item) => item.endsWith('.html'))) {
   const path = join(root, file);
   let html = await readFile(path, 'utf8');
   if (!isVercel) {
-    for (const route of ['nosotros', 'carta', 'galeria', 'encuentranos', 'reservas']) {
+    for (const route of ['nosotros', 'carta', 'planifica-tu-visita', 'galeria', 'encuentranos', 'reservas']) {
       html = html.replaceAll(`href="/${route}`, `href="${base}/${route}`);
     }
     html = html.replaceAll('href="/"', `href="${base}/"`);

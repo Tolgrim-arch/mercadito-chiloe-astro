@@ -1,9 +1,60 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
-const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
-<BaseLayout title="El lugar | El Mercadito de Chiloé" description="Conoce el ambiente y la propuesta gastronómica de El Mercadito de Chiloé, restaurante ubicado en Castro.">
-  <section class="bg-cream py-16 lg:py-24"><div class="mx-auto grid max-w-7xl items-center gap-10 px-5 md:grid-cols-2 lg:px-8"><div data-reveal><p class="text-sm font-bold uppercase tracking-[.16em] text-terracotta">El lugar</p><h1 class="mt-4 font-serif text-[clamp(3.2rem,7vw,6rem)] leading-[.95] tracking-[-.05em]">Una cocina con carácter chilote.</h1><p class="mt-7 max-w-xl text-lg leading-relaxed text-forest/70">El Mercadito reúne cocina, barrio, vistas y un interior construido con objetos que cuentan historias.</p></div><ResponsiveImage name="plato-02" class="aspect-[4/3] w-full rounded-[2.5rem] object-cover" alt="Muro interior de El Mercadito decorado con ilustraciones y platos" width={768} height={1024} loading="eager" /></div></section>
-  <section class="mx-auto grid max-w-7xl gap-12 px-5 py-20 md:grid-cols-2 lg:px-8"><ResponsiveImage name="plato-01" class="aspect-[4/3] w-full rounded-3xl object-cover" alt="Botes de madera en la costa de Chiloé" width={1024} height={768} /><div data-reveal><p class="text-sm font-bold uppercase tracking-[.16em] text-terracotta">Chiloé en la mesa</p><h2 class="mt-3 font-serif text-4xl md:text-6xl">Mar, huerta y cocina de temporada.</h2><p class="mt-6 text-lg leading-relaxed text-forest/70">La carta oficial recorre pescados, mariscos, preparaciones para compartir, platos del huerto y una selección de bebidas del sur. El resultado es una cocina cercana, expresiva y ligada al territorio.</p><div class="mt-8 flex flex-wrap gap-3"><a class="inline-flex min-h-12 items-center rounded-full bg-terracotta px-6 font-bold text-white hover:-translate-y-0.5 hover:bg-terracotta-dark" href={`${base}/carta/`}>Ver la carta</a><a class="inline-flex min-h-12 items-center rounded-full border border-forest/20 px-6 font-bold hover:border-terracotta hover:text-terracotta" href={`${base}/planifica-tu-visita/`}>Planifica tu visita</a><a class="inline-flex min-h-12 items-center rounded-full bg-forest px-6 font-bold text-white hover:-translate-y-0.5 hover:bg-terracotta" href={`${base}/encuentranos/`}>Cómo llegar</a></div></div></section>
+<BaseLayout title="El lugar | El Mercadito de Chiloé" description="Conoce el ambiente, la historia y la propuesta gastronómica de El Mercadito de Chiloé, restaurante ubicado en Pedro Montt 210, Castro.">
+  <section class="bg-cream py-16 lg:py-24">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 md:grid-cols-2 lg:px-8">
+      <div data-reveal>
+        <p class="text-sm font-bold uppercase tracking-[.16em] text-terracotta">Nuestra casa</p>
+        <h1 class="mt-4 font-serif text-[clamp(3.2rem,7vw,6rem)] leading-[.95] tracking-[-.05em] text-forest">Una cocina con carácter chilote.</h1>
+        <p class="mt-7 max-w-xl text-lg leading-relaxed text-forest/80">El Mercadito nació como un homenaje a las tradiciones del archipiélago: un espacio donde convergen la arquitectura de madera, el mar interior y una mesa generosa que celebra los ingredientes de nuestra tierra.</p>
+        <p class="mt-4 max-w-xl text-base leading-relaxed text-forest/70">Frente al barrio del puerto en Pedro Montt 210, el restaurante invita a detenerse, sentir el calor del fuego y disfrutar preparaciones sin prisa.</p>
+      </div>
+      <div data-reveal class="overflow-hidden rounded-[2.5rem] shadow-xl">
+        <ResponsiveImage name="plato-02" class="aspect-[4/3] w-full rounded-[2.5rem] object-cover" alt="Muro interior de El Mercadito decorado con ilustraciones, objetos de cocina y memoria local" width={768} height={1024} loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+    <div class="grid gap-12 lg:grid-cols-3">
+      <article data-reveal class="rounded-3xl border border-forest/10 bg-white p-8 shadow-sm">
+        <p class="text-xs font-bold uppercase tracking-wider text-terracotta">01. Arquitectura y memoria</p>
+        <h2 class="mt-3 font-serif text-3xl font-medium text-forest">Madera nativa y calidez</h2>
+        <p class="mt-4 leading-relaxed text-forest/75">Nuestro interior rinde culto a los antiguos hogares de la isla: tejuelas, vigas a la vista, plantas y una colección viva de vajilla y utensilios que cuentan las historias cotidianas de Chiloé.</p>
+      </article>
+
+      <article data-reveal class="rounded-3xl border border-forest/10 bg-white p-8 shadow-sm">
+        <p class="text-xs font-bold uppercase tracking-wider text-terracotta">02. Mar y huerta</p>
+        <h2 class="mt-3 font-serif text-3xl font-medium text-forest">Origen en el archipiélago</h2>
+        <p class="mt-4 leading-relaxed text-forest/75">Trabajamos con pescadores artesanales y recolectores de algas del golfo, combinando pescados frescos, mariscos, cordero campesino y las emblemáticas papas nativas de más de doscientas variedades insulares.</p>
+      </article>
+
+      <article data-reveal class="rounded-3xl border border-forest/10 bg-white p-8 shadow-sm">
+        <p class="text-xs font-bold uppercase tracking-wider text-terracotta">03. Encuentro honesto</p>
+        <h2 class="mt-3 font-serif text-3xl font-medium text-forest">Mesa compartida</h2>
+        <p class="mt-4 leading-relaxed text-forest/75">Creemos en platos abundantes, aromas familiares y preparaciones como el curanto en olla, chupe de jaiba y guisados que confortan el alma tras un día de lluvia y neblina sureña.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="bg-forest py-20 text-white">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 md:grid-cols-2 lg:px-8">
+      <div data-reveal class="overflow-hidden rounded-3xl shadow-2xl">
+        <ResponsiveImage name="plato-01" class="aspect-[4/3] w-full rounded-3xl object-cover" alt="Embarcaciones tradicionales en las costas del mar interior de Chiloé" width={1024} height={768} />
+      </div>
+      <div data-reveal>
+        <p class="text-sm font-bold uppercase tracking-[.16em] text-yellow">Identidad viva</p>
+        <h2 class="mt-3 font-serif text-4xl leading-tight md:text-6xl">Cocina de temporada y territorio.</h2>
+        <p class="mt-6 text-lg leading-relaxed text-white/80">Nuestra carta cambia con los ciclos de la naturaleza y las mareas de Chiloé. Desde picoteos con pan de papa tibio hasta postres con frutos silvestres como murta y calafate, cada preparación es un viaje por la cultura gastronómica de la Patagonia insular.</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a class="inline-flex min-h-12 items-center rounded-full bg-terracotta px-6 font-bold text-white transition hover:-translate-y-0.5 hover:bg-terracotta-dark" href={`${base}/carta/`}>Ver la carta</a>
+          <a class="inline-flex min-h-12 items-center rounded-full border border-white/20 px-6 font-bold text-white transition hover:border-yellow hover:text-yellow" href={`${base}/planifica-tu-visita/`}>Planifica tu visita</a>
+          <a class="inline-flex min-h-12 items-center rounded-full bg-white px-6 font-bold text-forest transition hover:bg-yellow hover:text-forest" href={`${base}/encuentranos/`}>Cómo llegar</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

@@ -3,18 +3,102 @@ import BrandLogo from './BrandLogo.astro';
 import Icon from './Icon.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const path = Astro.url.pathname.replace(base, '').replace(/\/$/, '') || '/';
-const links = [['/', 'Inicio', 'home'], ['/nosotros', 'El lugar', 'landmark'], ['/carta', 'Carta', 'menu-book'], ['/planifica-tu-visita', 'Planifica tu visita', 'calendar'], ['/encuentranos', 'Cómo llegar', 'map-pin']] as const;
+const links = [
+  ['/', 'Inicio', 'home'],
+  ['/nosotros', 'El lugar', 'landmark'],
+  ['/carta', 'Carta', 'menu-book'],
+  ['/planifica-tu-visita', 'Planifica tu visita', 'calendar'],
+  ['/encuentranos', 'Cómo llegar', 'map-pin']
+] as const;
 const href = (route: string) => `${base}${route === '/' ? '/' : `${route}/`}`;
 ---
 <a class="fixed left-4 top-2 z-[60] -translate-y-24 rounded-full bg-forest px-4 py-3 font-bold text-white transition focus:translate-y-0" href="#contenido">Saltar al contenido</a>
 <header class="sticky top-0 z-50 px-3 pt-3 sm:px-5" data-site-header>
   <div class="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-5 rounded-[1.35rem] border border-white/75 bg-paper/72 px-4 shadow-[0_12px_38px_rgba(25,55,47,0.12),inset_0_1px_0_rgba(255,255,255,0.8)] ring-1 ring-forest/5 backdrop-blur-2xl backdrop-saturate-150 transition-shadow duration-300 sm:px-6 lg:px-8">
     <a class="flex min-h-11 items-center" href={href('/')} aria-label="El Mercadito de Chiloé, inicio"><BrandLogo class="text-forest" /></a>
-    <nav class="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">{links.map(([route,label,icon]) => <a class:list={["inline-flex items-center gap-2 rounded-full px-3 py-2.5 text-sm font-bold transition hover:bg-cream hover:text-terracotta", path === route ? "bg-cream text-terracotta" : "text-forest"]} href={href(route)} aria-current={path === route ? 'page' : undefined}><span class="grid size-7 shrink-0 place-items-center rounded-full bg-current/8"><Icon name={icon} class="size-3.5" /></span>{label}</a>)}</nav>
-    <div class="flex items-center gap-2"><a class="hidden min-h-11 items-center gap-2 rounded-full bg-terracotta px-5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-terracotta-dark sm:inline-flex" href={href('/reservas')}><span class="grid size-7 place-items-center rounded-full bg-white/15"><Icon name="calendar" class="size-3.5" /></span>Reservas demo</a><button class="grid size-11 place-items-center rounded-full border border-forest/20 lg:hidden" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu" data-menu-button><Icon name="menu" class="size-6" /></button></div>
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
+      {links.map(([route, label, icon]) => (
+        <a class:list={["inline-flex min-h-11 items-center gap-2 rounded-full px-3 py-2 text-sm font-bold transition hover:bg-cream hover:text-terracotta", path === route ? "bg-cream text-terracotta" : "text-forest"]} href={href(route)} aria-current={path === route ? 'page' : undefined}>
+          <span class="grid size-7 shrink-0 place-items-center rounded-full bg-current/8"><Icon name={icon} class="size-3.5" /></span>
+          {label}
+        </a>
+      ))}
+    </nav>
+    <div class="flex items-center gap-2">
+      <a class="hidden min-h-11 items-center gap-2 rounded-full bg-terracotta px-5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-terracotta-dark sm:inline-flex" href={href('/reservas')}>
+        <span class="grid size-7 place-items-center rounded-full bg-white/15"><Icon name="calendar" class="size-3.5" /></span>
+        Reservas demo
+      </a>
+      <button class="grid size-11 place-items-center rounded-full border border-forest/20 lg:hidden" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
+        <Icon name="menu" class="size-6" />
+      </button>
+    </div>
   </div>
-  <nav id="mobile-menu" class="mx-auto mt-2 hidden max-w-7xl rounded-[1.35rem] border border-white/75 bg-paper/88 px-5 py-4 shadow-[0_18px_45px_rgba(25,55,47,0.16)] ring-1 ring-forest/5 backdrop-blur-2xl lg:hidden" aria-label="Navegación móvil" data-mobile-menu><div class="grid gap-1">{links.map(([route,label,icon]) => <a class:list={["flex items-center gap-3 rounded-xl px-4 py-3 text-base font-bold", path === route ? "bg-cream text-terracotta" : "text-forest"]} href={href(route)} aria-current={path === route ? 'page' : undefined}><Icon name={icon} class="size-5" />{label}</a>)}<a class="mt-2 flex items-center justify-center gap-2 rounded-xl bg-terracotta px-4 py-3 text-center font-bold text-white" href={href('/reservas')}><Icon name="calendar" class="size-5" />Reservas demo</a></div></nav>
+  <nav id="mobile-menu" class="mx-auto mt-2 hidden max-w-7xl rounded-[1.35rem] border border-white/75 bg-paper/88 px-5 py-4 shadow-[0_18px_45px_rgba(25,55,47,0.16)] ring-1 ring-forest/5 backdrop-blur-2xl lg:hidden" aria-label="Navegación móvil" data-mobile-menu>
+    <div class="grid gap-1">
+      {links.map(([route, label, icon]) => (
+        <a class:list={["flex min-h-11 items-center gap-3 rounded-xl px-4 py-3 text-base font-bold", path === route ? "bg-cream text-terracotta" : "text-forest"]} href={href(route)} aria-current={path === route ? 'page' : undefined}>
+          <Icon name={icon} class="size-5" />
+          {label}
+        </a>
+      ))}
+      <a class="mt-2 flex min-h-12 items-center justify-center gap-2 rounded-xl bg-terracotta px-4 py-3 text-center font-bold text-white" href={href('/reservas')}>
+        <Icon name="calendar" class="size-5" />
+        Reservas demo
+      </a>
+    </div>
+  </nav>
 </header>
 <script>
-  const initMenu = () => { const button = document.querySelector('[data-menu-button]'); const menu = document.querySelector('[data-mobile-menu]'); const header=document.querySelector('[data-site-header]'); if (!(button instanceof HTMLButtonElement) || !(menu instanceof HTMLElement) || !(header instanceof HTMLElement) || button.dataset.ready) return; button.dataset.ready='true'; const close=(restoreFocus=false)=>{menu.classList.add('hidden');button.setAttribute('aria-expanded','false');button.setAttribute('aria-label','Abrir menú');document.body.classList.remove('overflow-hidden');if(restoreFocus)button.focus()}; button.addEventListener('click',()=>{const open=button.getAttribute('aria-expanded')==='true';if(open)close();else{menu.classList.remove('hidden');button.setAttribute('aria-expanded','true');button.setAttribute('aria-label','Cerrar menú');document.body.classList.add('overflow-hidden')}});menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>close()));document.addEventListener('pointerdown',event=>{if(button.getAttribute('aria-expanded')==='true'&&event.target instanceof Node&&!header.contains(event.target))close()});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&button.getAttribute('aria-expanded')==='true')close(true)})}; document.addEventListener('astro:page-load',initMenu);initMenu();
+  let menuController = null;
+  const initMenu = () => {
+    if (menuController) {
+      menuController.abort();
+    }
+    menuController = new AbortController();
+    const { signal } = menuController;
+
+    const button = document.querySelector('[data-menu-button]');
+    const menu = document.querySelector('[data-mobile-menu]');
+    const header = document.querySelector('[data-site-header]');
+    if (!(button instanceof HTMLButtonElement) || !(menu instanceof HTMLElement) || !(header instanceof HTMLElement)) return;
+
+    const close = (restoreFocus = false) => {
+      menu.classList.add('hidden');
+      button.setAttribute('aria-expanded', 'false');
+      button.setAttribute('aria-label', 'Abrir menú');
+      document.body.classList.remove('overflow-hidden');
+      if (restoreFocus) button.focus();
+    };
+
+    button.addEventListener('click', () => {
+      const open = button.getAttribute('aria-expanded') === 'true';
+      if (open) close();
+      else {
+        menu.classList.remove('hidden');
+        button.setAttribute('aria-expanded', 'true');
+        button.setAttribute('aria-label', 'Cerrar menú');
+        document.body.classList.add('overflow-hidden');
+      }
+    }, { signal });
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => close(), { signal });
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+      if (button.getAttribute('aria-expanded') === 'true' && event.target instanceof Node && !header.contains(event.target)) {
+        close();
+      }
+    }, { signal });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+        close(true);
+      }
+    }, { signal });
+  };
+
+  document.addEventListener('astro:page-load', initMenu);
+  initMenu();
 </script>
