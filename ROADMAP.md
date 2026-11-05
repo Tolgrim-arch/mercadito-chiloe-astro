@@ -29,7 +29,7 @@ La declaración anterior de “implementación completa” era incorrecta: varia
 - [x] Completar fichas de platos con fotografía y restauración explícita de foco.
 - [x] Completar contenido/CTA pendientes de Inicio y El lugar.
 - [x] Ejecutar QA visual, responsive y de teclado de esta reapertura.
-- [ ] Publicar la reapertura en GitHub y Vercel.
+- [x] Publicar la reapertura en GitHub Pages y Vercel.
 
 - [x] Fase 0: roadmap creado y usado como fuente de verdad.
 - [x] Fase 1: sitio, carta, Maps, contacto e imágenes oficiales auditados; datos centralizados.
@@ -49,7 +49,7 @@ La declaración anterior de “implementación completa” era incorrecta: varia
 - [x] Fase 15: 404 rediseñada con `noindex` y rutas de recuperación.
 - [x] Fase 16: fuentes locales cargadas, canonical, Open Graph, JSON-LD, robots, sitemap y descripciones únicas verificados.
 - [x] Fase 17: build, prueba de aceptación, QA responsive, teclado, URLs, consola y movimiento reducido repetidos tras la reapertura.
-- [ ] Fase 18: documentación base existe; la reapertura aún no fue revisada, enviada a GitHub ni publicada en Vercel.
+- [x] Fase 18: documentación, revisión local, GitHub Pages y despliegue Vercel completados y verificados.
 
 **Evidencia local actual (2026-11-05):** `npm test` genera ocho rutas y valida metadatos únicos, landmarks, sitemap, variantes responsivas y enlaces internos. El navegador confirmó cero overflow en 320/390/540/768/1024/1440/1920 px, modal con Escape y foco restaurado, filtro persistente por URL, reserva completa, movimiento reducido, fuentes reales cargadas y fotografías WebP seleccionadas.
 
@@ -234,9 +234,9 @@ La declaración anterior de “implementación completa” era incorrecta: varia
 - [x] Actualizar README con ejecución, build, fuentes y límites de la demo.
 - [x] Crear matriz de evidencia para navegación, interacción, Tailwind, responsive y UI/UX.
 - [x] Presentar y recorrer la versión local reabierta en navegador.
-- [ ] Publicar en GitHub Pages sólo después de la revisión solicitada.
-- [ ] Publicar la versión Astro reabierta en Vercel con configuración de rutas específica por entorno.
-- [ ] Verificar públicamente Inicio, Carta, Planifica tu visita, recursos estáticos y 404.
+- [x] Publicar en GitHub Pages después de la revisión local.
+- [x] Publicar la versión Astro reabierta en Vercel con configuración de rutas específica por entorno.
+- [x] Verificar públicamente Inicio, Carta, Planifica tu visita, recursos estáticos y 404.
 
 ## Criterios finales
 
@@ -248,3 +248,10 @@ La declaración anterior de “implementación completa” era incorrecta: varia
 - [x] No existe información comercial inventada.
 - [x] No hay overflow y el build contempla GitHub Pages y la raíz de Vercel.
 - [x] `RUBRICA-EVIDENCIA.md` documenta la evidencia para nivel excelente en la rúbrica RA2.
+
+## Publicación verificada — 5 de noviembre de 2026
+
+- GitHub: commit de implementación `1104cc120a360fe22df9de6a41e5b545ba1da0ef` en `main`.
+- GitHub Pages: Inicio actualizado y variante WebP respondieron HTTP 200.
+- Vercel: deployment `dpl_3HmJXUP344AmZDWSx2jDzRxY5nDL`, estado `READY`, asociado al mismo SHA.
+- Producción Vercel: Inicio, Carta, Planifica tu visita y WebP respondieron HTTP 200; una ruta inexistente respondió HTTP 404 con la página propia.
