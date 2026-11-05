@@ -5,8 +5,53 @@ import SiteFooter from '../components/SiteFooter.astro';
 import MobileQuickActions from '../components/MobileQuickActions.astro';
 import { restaurant } from '../data/restaurant';
 import '../styles/tailwind.css';
-const { title, description = 'El Mercadito de Chiloé, restaurante en Castro con cocina inspirada en el mar y el territorio.', noindex = false } = Astro.props;
+
+const descriptions: Record<string,string> = {
+  '/encuentranos/': 'Encuentra El Mercadito de Chiloé en Pedro Montt 210, Castro: mapa, horarios de referencia, teléfono y acceso a Google Maps.',
+  '/galeria/': 'La antigua galería de El Mercadito de Chiloé fue trasladada a la guía Planifica tu visita.',
+};
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const localPath = Astro.url.pathname.replace(base, '') || '/';
+const { title, description = descriptions[localPath] ?? 'El Mercadito de Chiloé, restaurante en Castro con cocina inspirada en el mar y el territorio.', noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const fontFaces = `
+@font-face{font-family:'DM Sans';src:url('${base}/fonts/dm-400.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'DM Sans';src:url('${base}/fonts/dm-600.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'DM Sans';src:url('${base}/fonts/dm-700.ttf') format('truetype');font-weight:700;font-display:swap}
+@font-face{font-family:'Playfair Display';src:url('${base}/fonts/playfair-500.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Playfair Display';src:url('${base}/fonts/playfair-500-italic.ttf') format('truetype');font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:'Playfair Display';src:url('${base}/fonts/playfair-600.ttf') format('truetype');font-weight:600;font-display:swap}`;
 const structuredData = { '@context':'https://schema.org', '@type':'Restaurant', name:restaurant.name, url:restaurant.originalSite, telephone:restaurant.phoneDisplay, address:{ '@type':'PostalAddress', streetAddress:'Pedro Montt 210', addressLocality:'Castro', addressRegion:'Los Lagos', addressCountry:'CL' }, geo:{ '@type':'GeoCoordinates', latitude:restaurant.coordinates.latitude, longitude:restaurant.coordinates.longitude }, sameAs:[restaurant.instagram,restaurant.maps] };
 ---
-<!doctype html><html lang="es"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="description" content={description} /><link rel="canonical" href={canonical} />{noindex && <meta name="robots" content="noindex,follow" />}<meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:type" content="website" /><meta property="og:url" content={canonical} /><script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script><title>{title}</title><script is:inline>document.documentElement.classList.add('js')</script><slot name="head" /><ClientRouter /></head><body id="top" class="bg-paper text-forest antialiased"><SiteHeader /><main id="contenido"><slot /></main><SiteFooter /><MobileQuickActions /><script>const initReveal=()=>{const items=document.querySelectorAll('[data-reveal]:not([data-reveal-ready])');if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver'in window)){items.forEach(el=>el.setAttribute('data-reveal-visible',''));return}const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.setAttribute('data-reveal-visible','');observer.unobserve(entry.target)}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});items.forEach(el=>{el.setAttribute('data-reveal-ready','');observer.observe(el)})};document.addEventListener('astro:page-load',initReveal);initReveal();</script></body></html>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <style is:inline set:html={fontFaces}></style>
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+    <title>{title}</title>
+    <script is:inline>document.documentElement.classList.add('js')</script>
+    <slot name="head" />
+    <ClientRouter />
+  </head>
+  <body id="top" class="bg-paper text-forest antialiased">
+    <SiteHeader />
+    <main id="contenido"><slot /></main>
+    <SiteFooter />
+    <MobileQuickActions />
+    <script>
+      const initReveal=()=>{const items=document.querySelectorAll('[data-reveal]:not([data-reveal-ready])');if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver'in window)){items.forEach(el=>el.setAttribute('data-reveal-visible',''));return}const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.setAttribute('data-reveal-visible','');observer.unobserve(entry.target)}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});items.forEach(el=>{const siblings=el.parentElement?[...el.parentElement.children].filter(child=>child.hasAttribute('data-reveal')):[];const index=siblings.indexOf(el);if(index>0&&el instanceof HTMLElement)el.style.transitionDelay=`${Math.min(index*60,180)}ms`;el.setAttribute('data-reveal-ready','');observer.observe(el)})};document.addEventListener('astro:page-load',initReveal);initReveal();
+    </script>
+    <script>
+      const initResponsiveImages=()=>{const supported=new Set(['exterior-01','ambiente-01','ambiente-03','plato-01','plato-02','plato-04']);document.querySelectorAll('img[src*="/images/mercadito/"]:not([data-progressive-main]):not([data-responsive-ready])').forEach(image=>{if(!(image instanceof HTMLImageElement))return;const name=image.src.split('/').pop()?.replace(/\.jpg$/,'');if(!name||!supported.has(name))return;const root=image.src.replace(/\/[^/]+\.jpg$/,'/responsive');image.srcset=[480,768,1024].map(width=>`${root}/${name}-${width}.webp ${width}w`).join(', ');image.sizes=image.sizes||'(min-width: 768px) 50vw, 100vw';image.decoding='async';image.dataset.responsiveReady='1'})};document.addEventListener('astro:page-load',initResponsiveImages);initResponsiveImages();
+    </script>
+  </body>
+</html>

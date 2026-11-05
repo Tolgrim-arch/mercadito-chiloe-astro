@@ -1,6 +1,6 @@
 {
   "name": "mercadito-chiloe-rebranding",
   "type": "module",
-  "scripts": { "dev": "astro dev", "build": "astro build && node scripts/fix-pages-links.mjs", "preview": "astro preview" },
+  "scripts": { "dev": "astro dev", "build": "astro build && node scripts/fix-pages-links.mjs", "test": "npm run build && node scripts/qa-roadmap.mjs", "test:roadmap": "node scripts/qa-roadmap.mjs", "preview": "astro preview" },
   "devDependencies": { "astro": "latest", "typescript": "^6.0.0", "tailwindcss": "^4.1.17", "@tailwindcss/vite": "^4.1.17" }
 }

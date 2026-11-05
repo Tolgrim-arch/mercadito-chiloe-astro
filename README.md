@@ -33,4 +33,4 @@ Los datos de contacto, ubicación y carta proceden del sitio original, la ficha 
 
 Reservas es una demostración académica: no envía solicitudes, no confirma mesas y no almacena datos personales. Para contacto real se ofrecen el teléfono y WhatsApp oficiales.
 
-El detalle de fases y verificaciones está en [ROADMAP.md](./ROADMAP.md).
+El detalle de fases y verificaciones está en [ROADMAP.md](./ROADMAP.md). La evidencia de la rúbrica está en [RUBRICA-EVIDENCIA.md](./RUBRICA-EVIDENCIA.md).

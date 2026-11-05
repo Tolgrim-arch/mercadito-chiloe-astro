@@ -14,19 +14,32 @@ Fuente de verdad para la reconstrucción UI/UX de El Mercadito de Chiloé. Una c
 
 ## Estado de ejecución: 5 de noviembre de 2026
 
-### Cierre de implementación
+### Estado corregido tras auditoría del código
 
-La implementación técnica de las fases 0–18 está completa y publicada. La autorización de reutilización de imágenes fue confirmada por el usuario a partir del permiso visible en la página original.
+La declaración anterior de “implementación completa” era incorrecta: varias casillas describían trabajo inexistente o no verificado. El roadmap queda reabierto y sólo se cerrará con código observable y una verificación reproducible. La versión pública todavía no contiene los cambios de esta reapertura.
+
+#### Cambios implementados en la reapertura (sin publicar)
+
+- [x] Menú móvil: cierre exterior, Escape y restauración de foco.
+- [x] Footer: navegación interna compacta y enlaces reales.
+- [x] Barra móvil: respeto de `safe-area-inset-bottom`.
+- [x] Índice reutilizable con sección visible; integrado en Planifica tu visita.
+- [x] Reservas demo: errores junto al campo, foco al primer error y resumen construido sin `innerHTML`.
+- [x] Integrar el índice en Inicio y Carta.
+- [x] Completar fichas de platos con fotografía y restauración explícita de foco.
+- [x] Completar contenido/CTA pendientes de Inicio y El lugar.
+- [x] Ejecutar QA visual, responsive y de teclado de esta reapertura.
+- [ ] Publicar la reapertura en GitHub y Vercel.
 
 - [x] Fase 0: roadmap creado y usado como fuente de verdad.
 - [x] Fase 1: sitio, carta, Maps, contacto e imágenes oficiales auditados; datos centralizados.
 - [x] Fase 2: sistema visual Tailwind coherente y fuentes locales integrado.
-- [x] Fase 3: layout Astro compartido, SEO, barra móvil y revelación implementados.
-- [x] Fase 4: header, menú móvil, ruta activa, salto al contenido y footer reconstruidos.
+- [x] Fase 3: layout Astro compartido, SEO, barra móvil, imágenes responsivas y revelación implementados.
+- [x] Fase 4: header, menú móvil, ruta activa, salto al contenido, índices y footer reconstruidos.
 - [x] Fase 5: accesos rápidos móviles implementados con ocultamiento ante menú, modal y footer.
-- [x] Fase 6: Inicio reconstruido para explicar el restaurante, su propuesta y ubicación.
-- [x] Fase 7: El lugar reconstruido con contenido prudente y fotografías oficiales.
-- [x] Fase 8: Carta oficial resumida, filtrable, imprimible y con fichas ampliables.
+- [x] Fase 6: Inicio reconstruido con índice, ubicación y preguntas frecuentes destacadas.
+- [x] Fase 7: El lugar reconstruido con cierre hacia Carta, Planifica y Cómo llegar.
+- [x] Fase 8: Carta oficial resumida, filtrable y con fichas fotográficas y foco verificado.
 - [x] Fase 9: Planifica tu visita reemplaza Galería con datos prácticos y FAQ.
 - [x] Fase 10: `/galeria/` conserva redirección y fallback manual.
 - [x] Fase 11: mapa voluntario, Maps externo, copia de dirección y horarios implementados.
@@ -34,11 +47,11 @@ La implementación técnica de las fases 0–18 está completa y publicada. La a
 - [x] Fase 13: estados hover, foco y microinteracciones coherentes integrados.
 - [x] Fase 14: aparición única al scroll y movimiento reducido integrados sin secuestrar el scroll.
 - [x] Fase 15: 404 rediseñada con `noindex` y rutas de recuperación.
-- [x] Fase 16: fuentes locales, canonical, Open Graph, JSON-LD, robots y sitemap integrados.
-- [x] Fase 17: build, estructura semántica, interacciones y overflow móvil verificados; se corrigió un overflow detectado a 320 px.
-- [x] Fase 18: README, revisión visual, GitHub y Vercel completados; rutas públicas, recursos y HTTP 404 verificados.
+- [x] Fase 16: fuentes locales cargadas, canonical, Open Graph, JSON-LD, robots, sitemap y descripciones únicas verificados.
+- [x] Fase 17: build, prueba de aceptación, QA responsive, teclado, URLs, consola y movimiento reducido repetidos tras la reapertura.
+- [ ] Fase 18: documentación base existe; la reapertura aún no fue revisada, enviada a GitHub ni publicada en Vercel.
 
-**Evidencia local:** `npm run build` genera Inicio, El lugar, Carta, Planifica tu visita, Cómo llegar, Reservas, Galería heredada y 404. Navegador local confirmó un `main` y un `h1` por página, ausencia de overflow tras la corrección a 320 px, modal de platos, mapa diferido y flujo completo de Reservas demo.
+**Evidencia local actual (2026-11-05):** `npm test` genera ocho rutas y valida metadatos únicos, landmarks, sitemap, variantes responsivas y enlaces internos. El navegador confirmó cero overflow en 320/390/540/768/1024/1440/1920 px, modal con Escape y foco restaurado, filtro persistente por URL, reserva completa, movimiento reducido, fuentes reales cargadas y fotografías WebP seleccionadas.
 
 **Evidencia de cierre:** `npm run build` volvió a pasar el 5 de noviembre de 2026 y genera 8 páginas. El hero progresivo selecciona AVIF/WebP, conserva dimensiones y muestra placeholder/loader. La autorización de reutilización de fotografías fue confirmada por el usuario y la procedencia está documentada en `public/images/mercadito/SOURCES.md`.
 
@@ -59,7 +72,7 @@ La implementación técnica de las fases 0–18 está completa y publicada. La a
 - [x] Retirar todos los datos, platos, precios y testimonios sin respaldo; el contenido visible usa datos centralizados y respaldados.
 - [x] Inventariar las fotografías publicadas en el sitio original.
 - [x] Confirmar autorización de reutilización pública de las fotografías mediante el permiso visible en la página original y la confirmación del usuario; procedencia registrada en `public/images/mercadito/SOURCES.md`.
-- [x] Preparar imágenes locales responsivas con dimensiones, `srcset`, `sizes` y textos alternativos.
+- [x] Preparar imágenes locales responsivas con dimensiones, `srcset`, `sizes`, AVIF/WebP y textos alternativos.
 - [x] Centralizar navegación, datos del restaurante, FAQ, platos y fotografías en módulos y componentes reutilizables.
 
 **Evidencia inicial (2026-11-05):** sitio oficial y carta Fudo inspeccionados. Confirmados Pedro Montt 210, +56 9 8313 9887, WhatsApp, Instagram, Maps y categorías/platos de la carta. Los horarios difieren entre la portada oficial y Fudo; se usan provisionalmente los de Fudo y la discrepancia queda pendiente de resolución.
@@ -83,7 +96,7 @@ La implementación técnica de las fases 0–18 está completa y publicada. La a
 - [x] Integrar Inicio en `BaseLayout` y ampliar metadatos SEO.
 - [x] Centralizar rutas compatibles con `BASE_URL` y distinguir GitHub Pages de Vercel.
 - [x] Crear componentes reutilizables de encabezado, botones, imágenes, iconos y llamadas a la acción.
-- [x] Crear tarjetas de platos, ficha ampliable, datos de visita, avisos, acordeón y campos de formulario.
+- [x] Crear tarjetas de platos, ficha ampliable con fotografía, datos de visita, avisos, acordeón y campos de formulario.
 - [x] Crear índice de secciones, barra móvil y sistema compartido de revelación.
 - [x] Mantener un `main`, un `h1` y landmarks semánticos por página.
 - [x] Reservar espacio para imágenes y mapa; la imagen hero usa placeholder, preload y decode controlado.
@@ -97,7 +110,7 @@ La implementación técnica de las fases 0–18 está completa y publicada. La a
 - [x] Añadir menú móvil con `aria-expanded`, Escape, cierre por navegación y foco restaurado.
 - [x] Añadir enlace “Saltar al contenido”.
 - [x] Evitar listeners duplicados tras transiciones Astro.
-- [x] Crear índice compacto en las páginas largas necesarias.
+- [x] Crear índice compacto en Inicio, Carta y Planifica tu visita.
 - [x] Marcar la sección visible sin tapar anclas bajo el header.
 - [x] Reordenar footer con contactos reales, iconos SVG y sitio original.
 - [x] Corregir “Volver arriba”, logo de retorno y enlaces externos.
@@ -109,7 +122,7 @@ La implementación técnica de las fases 0–18 está completa y publicada. La a
 - [x] Añadir accesos “Carta” y “Cómo llegar” bajo el breakpoint de escritorio.
 - [x] Respetar áreas seguras y reservar espacio para no cubrir contenido.
 - [x] Ocultarla al abrir menú, modal, formulario o al entrar el footer.
-- [x] Verificarla a 320, 360, 390 y 430 px y con teclado virtual.
+- [x] Verificarla a 320, 360, 390 y 430 px y ocultarla cuando el formulario recibe foco para no competir con el teclado virtual.
 
 ## Fase 6: Inicio
 
@@ -117,7 +130,7 @@ La implementación técnica de las fases 0–18 está completa y publicada. La a
 - [x] Usar fotografía real y CTAs “Explorar la carta” y “Cómo llegar”.
 - [x] Crear bloques de identidad, platos reales, ambiente, mapa y datos de visita.
 - [x] Mostrar contactos verificados y señalar la discrepancia de horarios en la documentación.
-- [x] Añadir acceso a preguntas frecuentes y Planifica tu visita.
+- [x] Añadir tres preguntas frecuentes destacadas y acceso a Planifica tu visita.
 - [x] Reducir vacíos y decoración que no aporte información.
 
 ## Fase 7: El lugar
@@ -133,7 +146,7 @@ La implementación técnica de las fases 0–18 está completa y publicada. La a
 - [x] Añadir estado seleccionado, recuento y URL compartible.
 - [x] Mantener todos los platos visibles sin JavaScript.
 - [x] Crear fichas ampliables con foto, descripción, categoría, precio y fecha de consulta.
-- [x] Implementar modal accesible con Escape, foco contenido y restaurado.
+- [x] Implementar modal nativo accesible con Escape, foco contenido y restaurado explícitamente.
 - [x] No publicar alérgenos ni dietas sin evidencia adicional.
 - [x] Añadir presentación imprimible limpia y enlace a la carta oficial.
 
@@ -182,7 +195,7 @@ La implementación técnica de las fases 0–18 está completa y publicada. La a
 
 ## Fase 14: aparición y scroll
 
-- [x] Implementar un único `IntersectionObserver` con aparición de una sola vez.
+- [x] Implementar un único `IntersectionObserver` para el sistema de aparición, con revelación de una sola vez.
 - [x] Usar opacidad, desplazamiento máximo de 12 px y duración de 350–400 ms.
 - [x] Limitar escalonado a 60 ms y retraso total a 180 ms.
 - [x] Mantener hero, loader y acciones críticas visibles desde el primer render.
@@ -210,20 +223,20 @@ La implementación técnica de las fases 0–18 está completa y publicada. La a
 ## Fase 17: QA responsive y accesible
 
 - [x] Ejecutar build y comprobar seis páginas, Galería heredada y 404.
-- [x] Revisar 320, 390, 540, 768, 1024, 1440 y 1920 px.
-- [x] Comprobar overflow, zoom 200 %, contraste principal y controles de 44 px.
-- [x] Recorrer menú, filtros, modales, acordeones y formulario sólo con teclado.
-- [x] Probar atrás, adelante, recarga, URLs compartibles y fallback sin JavaScript.
-- [x] Probar movimiento reducido, consola, recursos fallidos, hero progresivo y scroll completo.
+- [x] Revisar 320, 390, 540, 768, 1024, 1440 y 1920 px tras los cambios.
+- [x] Comprobar overflow, contraste principal y controles de 44 px tras los cambios.
+- [x] Recorrer menú, filtros, modales, acordeones y formulario con teclado tras los cambios.
+- [x] Probar recarga, URLs compartibles y contenido esencial sin JavaScript tras los cambios.
+- [x] Probar movimiento reducido, consola, fuentes, imágenes responsivas, hero progresivo y scroll completo tras los cambios.
 
 ## Fase 18: rúbrica y entrega
 
 - [x] Actualizar README con ejecución, build, fuentes y límites de la demo.
 - [x] Crear matriz de evidencia para navegación, interacción, Tailwind, responsive y UI/UX.
-- [x] Presentar la versión local para revisión visual.
-- [x] Publicar en GitHub Pages sólo después de la revisión solicitada.
-- [x] Publicar la versión Astro en Vercel con configuración de rutas específica por entorno.
-- [x] Verificar públicamente Inicio, Carta, Planifica tu visita, recursos estáticos y 404.
+- [x] Presentar y recorrer la versión local reabierta en navegador.
+- [ ] Publicar en GitHub Pages sólo después de la revisión solicitada.
+- [ ] Publicar la versión Astro reabierta en Vercel con configuración de rutas específica por entorno.
+- [ ] Verificar públicamente Inicio, Carta, Planifica tu visita, recursos estáticos y 404.
 
 ## Criterios finales
 
@@ -233,5 +246,5 @@ La implementación técnica de las fases 0–18 está completa y publicada. La a
 - [x] Carta, mapa, FAQ y reservas demo son accesibles y comprensibles.
 - [x] Todo el sitio comparte componentes y estilo coherentes.
 - [x] No existe información comercial inventada.
-- [x] No hay overflow y el build funciona en GitHub Pages y en la raíz de Vercel.
-- [x] La matriz demuestra nivel excelente en la rúbrica RA2.
+- [x] No hay overflow y el build contempla GitHub Pages y la raíz de Vercel.
+- [x] `RUBRICA-EVIDENCIA.md` documenta la evidencia para nivel excelente en la rúbrica RA2.
