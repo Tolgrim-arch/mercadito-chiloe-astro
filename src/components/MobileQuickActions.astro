@@ -1,0 +1,6 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+import Icon from './Icon.astro';
+---
+<nav data-quick-actions class="fixed inset-x-3 bottom-3 z-40 grid grid-cols-2 gap-2 rounded-2xl border border-white/70 bg-paper/95 p-2 shadow-2xl backdrop-blur-xl lg:hidden" aria-label="Accesos rápidos"><a class="flex min-h-12 items-center justify-center gap-2 rounded-xl bg-cream text-sm font-bold" href={`${base}/carta/`}><Icon name="menu-book" />Ver carta</a><a class="flex min-h-12 items-center justify-center gap-2 rounded-xl bg-forest text-sm font-bold text-white" href={`${base}/encuentranos/`}><Icon name="map-pin" />Cómo llegar</a></nav>
+<script>const initQuickActions=()=>{const bar=document.querySelector('[data-quick-actions]');const footer=document.querySelector('footer');if(!(bar instanceof HTMLElement)||!(footer instanceof HTMLElement)||bar.dataset.ready)return;bar.dataset.ready='1';const observer=new IntersectionObserver(([entry])=>bar.classList.toggle('invisible',entry.isIntersecting),{threshold:.05});observer.observe(footer)};document.addEventListener('astro:page-load',initQuickActions);initQuickActions();</script>

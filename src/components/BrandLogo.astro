@@ -1,0 +1,21 @@
+---
+interface Props { class?: string; }
+const { class: className = '' } = Astro.props;
+---
+<span class:list={["inline-flex items-center gap-2.5", className]}>
+  <svg class="size-11 shrink-0 overflow-visible" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <rect x="14" y="14" width="172" height="172" rx="52" fill="currentColor" opacity=".08" />
+    <g fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M46 86 94 49q6-5 12 0l48 37" />
+      <rect x="57" y="84" width="86" height="51" rx="9" />
+      <rect x="72" y="101" width="17" height="16" rx="5" />
+      <rect x="111" y="101" width="17" height="16" rx="5" />
+      <path d="M72 135v27M92 135v23M110 135v23M130 135v27" />
+      <path d="M39 169q12-9 24 0t24 0 24 0 24 0 24 0" />
+    </g>
+  </svg>
+  <span class="leading-none">
+    <strong class="block font-serif text-xl font-semibold lowercase tracking-[-.035em]">mercadito</strong>
+    <span class="mt-1 block text-[10px] font-bold tracking-[.24em] opacity-60">CHILOÉ</span>
+  </span>
+</span>

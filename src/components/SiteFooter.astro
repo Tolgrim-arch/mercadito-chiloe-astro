@@ -1,1 +1,40 @@
-<footer transition:persist="site-footer" class="mx-auto max-w-[1390px] px-6 pb-3 pt-4 md:px-[5vw]"><div class="flex items-center justify-between gap-3 border-b border-ink/15 pb-4"><a class="flex items-center gap-2 text-[13px] font-bold uppercase leading-none tracking-wide" href={`${import.meta.env.BASE_URL}/`}><span class="grid size-[30px] place-items-center rounded-full bg-orange font-serif text-lg text-white">M</span><span>Mercadito<br /><em class="font-serif text-sm font-semibold normal-case">de Chiloé</em></span></a><p class="m-0 max-w-[150px] text-center font-serif text-base leading-tight text-ink/60">Cocina de la isla,<br />con tiempo y cariño.</p><div class="flex flex-wrap justify-end gap-2"><a class="inline-flex min-h-11 items-center rounded-full border border-ink/15 px-3 text-xs font-bold transition hover:border-orange hover:text-orange" href="https://instagram.com" aria-label="Instagram">Instagram</a><a class="inline-flex min-h-11 items-center rounded-full border border-ink/15 px-3 text-xs font-bold transition hover:border-orange hover:text-orange" href="mailto:hola@mercaditodechiloe.com" aria-label="Escribir por correo electrónico">Escríbenos</a></div></div><div class="flex flex-wrap justify-between gap-2 pt-2 text-[10px] text-ink/55"><span>© 2026 Mercadito de Chiloé</span><span>Hecho en Castro, Chile</span><a class="inline-flex min-h-11 items-center px-2 font-bold text-ink underline-offset-4 hover:underline" href="#top">Volver arriba ↑</a></div></footer>
+---
+import { restaurant } from '../data/restaurant';
+import BrandLogo from './BrandLogo.astro';
+import Icon from './Icon.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const home = `${base}/#top`;
+---
+
+<footer transition:persist="site-footer" class="mx-auto max-w-[1390px] px-5 py-3 md:px-[5vw]">
+  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-ink/15 pb-3">
+    <a class="flex min-h-11 items-center" href={home} aria-label="El Mercadito de Chiloé, volver al inicio" data-scroll-home><BrandLogo class="text-forest" /></a>
+    <p class="m-0 hidden font-serif text-sm leading-tight text-ink/60 sm:block">Restaurante en Castro, Chiloé.</p>
+    <div class="flex flex-wrap justify-end gap-1.5">
+      <a class="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-ink/15 px-2.5 text-xs font-bold transition hover:border-orange hover:text-orange" href={restaurant.instagram} target="_blank" rel="noreferrer"><span class="grid size-7 place-items-center rounded-full bg-ink/5"><Icon name="instagram" class="size-3.5" /></span>Instagram</a>
+      <a class="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-ink/15 px-2.5 text-xs font-bold transition hover:border-orange hover:text-orange" href={restaurant.whatsapp} target="_blank" rel="noreferrer"><span class="grid size-7 place-items-center rounded-full bg-ink/5"><Icon name="message-circle" class="size-3.5" /></span>WhatsApp</a>
+      <a class="inline-flex min-h-10 items-center gap-1.5 rounded-full bg-ink px-2.5 text-xs font-bold text-white transition hover:bg-orange" href={restaurant.originalSite} target="_blank" rel="noreferrer"><span class="grid size-7 place-items-center rounded-full bg-white/10"><Icon name="globe" class="size-3.5" /></span>Sitio original</a>
+    </div>
+  </div>
+  <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 pt-2 text-[11px] text-ink/60">
+    <span>© 2026 El Mercadito de Chiloé</span><span class="hidden md:inline">{restaurant.address}</span>
+    <a class="inline-flex min-h-8 items-center font-bold text-ink underline-offset-4 hover:underline" href="#top" data-scroll-home>Volver arriba ↑</a>
+  </div>
+</footer>
+<script>
+  const initFooterScroll = () => {
+    document.querySelectorAll('[data-scroll-home]').forEach((link) => {
+      if (!(link instanceof HTMLAnchorElement) || link.dataset.scrollReady) return;
+      link.dataset.scrollReady = 'true';
+      link.addEventListener('click', (event) => {
+        const target = new URL(link.href, window.location.href);
+        if (target.pathname !== window.location.pathname) return;
+        event.preventDefault();
+        window.history.replaceState({}, '', target.pathname);
+        window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      });
+    });
+  };
+  document.addEventListener('astro:page-load', initFooterScroll);
+  initFooterScroll();
+</script>

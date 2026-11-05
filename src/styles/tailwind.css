@@ -1,11 +1,9 @@
 @import 'tailwindcss';
-
-@theme {
-  --font-sans: 'DM Sans', sans-serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --color-ink: #203b35;
-  --color-paper: #fbfaf6;
-  --color-cream: #f4f0e8;
-  --color-orange: #e36d3c;
-  --color-yellow: #edc95a;
-}
+@font-face{font-family:'DM Sans';src:url('/mercadito-chiloe-astro/fonts/dm-400.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'DM Sans';src:url('/mercadito-chiloe-astro/fonts/dm-600.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'DM Sans';src:url('/mercadito-chiloe-astro/fonts/dm-700.ttf') format('truetype');font-weight:700;font-display:swap}
+@font-face{font-family:'Playfair Display';src:url('/mercadito-chiloe-astro/fonts/playfair-500.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Playfair Display';src:url('/mercadito-chiloe-astro/fonts/playfair-500-italic.ttf') format('truetype');font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:'Playfair Display';src:url('/mercadito-chiloe-astro/fonts/playfair-600.ttf') format('truetype');font-weight:600;font-display:swap}
+@theme { --font-sans:'DM Sans',ui-sans-serif,system-ui,sans-serif; --font-serif:'Playfair Display',Georgia,serif; --color-forest:#203b35; --color-ink:#203b35; --color-paper:#fbfaf6; --color-cream:#f1ece2; --color-terracotta:#b84d2d; --color-terracotta-dark:#92381f; --color-orange:#b84d2d; --color-yellow:#edc95a; }
+html{scroll-behavior:smooth;scroll-padding-top:6rem}body{min-width:0;padding-bottom:5.5rem}::selection{background:#edc95a;color:#203b35}[data-reveal]{opacity:1;transform:none}[data-reveal][data-reveal-ready]:not([data-reveal-visible]){opacity:0;transform:translateY(12px)}[data-reveal][data-reveal-ready]{transition:opacity .38s ease,transform .38s ease}:focus-visible{outline:2px solid #b84d2d;outline-offset:4px}body:has(dialog[open]) [data-quick-actions],body.overflow-hidden [data-quick-actions]{display:none}@media(min-width:1024px){body{padding-bottom:0}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}@media print{header,footer,nav,button,[data-no-print]{display:none!important}body{padding:0;background:white;color:black}}

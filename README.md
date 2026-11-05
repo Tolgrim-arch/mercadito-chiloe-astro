@@ -1,6 +1,6 @@
-# Mercadito de Chiloé
+# El Mercadito de Chiloé
 
-Rebranding académico construido con Astro y Tailwind CSS 4.
+Rebranding académico del restaurante construido con Astro 7 y Tailwind CSS 4. La web es estática, mobile-first y usa el `base path` `/mercadito-chiloe-astro` de GitHub Pages.
 
 ## Desarrollo
 
@@ -15,4 +15,22 @@ npm run dev
 npm run build
 ```
 
-Incluye seis páginas: Inicio, Nuestra historia, La carta, Galería, Encuéntranos y Reservas. El header compartido es sticky, glassmorphism y usa navegación con transiciones de Astro.
+## Páginas
+
+- Inicio
+- El lugar
+- Carta
+- Planifica tu visita
+- Cómo llegar
+- Reservas demo
+- 404 propia
+
+`/galeria/` se conserva como ruta heredada hacia Planifica tu visita.
+
+## Contenido y límites
+
+Los datos de contacto, ubicación y carta proceden del sitio original, la ficha oficial de Google Maps y la carta Fudo, consultados el 5 de noviembre de 2026. Los precios pueden cambiar.
+
+Reservas es una demostración académica: no envía solicitudes, no confirma mesas y no almacena datos personales. Para contacto real se ofrecen el teléfono y WhatsApp oficiales.
+
+El detalle de fases y verificaciones está en [ROADMAP.md](./ROADMAP.md).

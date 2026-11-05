@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tolgrim-arch.github.io/mercadito-chiloe-astro/sitemap.xml
