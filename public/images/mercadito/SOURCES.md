@@ -7,4 +7,4 @@ Las fotografías de esta carpeta fueron descargadas desde las imágenes pública
 - `plato-01.jpg` a `plato-04.jpg`: fotografías públicas del sitio oficial, usadas en Carta, El lugar y Planifica tu visita.
 - `hero/`: derivados locales optimizados de `exterior-01.jpg`; AVIF, WebP y placeholder para la imagen principal.
 
-No se presentan estas imágenes como material producido por el proyecto. Su reutilización pública definitiva debe contar con la autorización del restaurante o mantenerse limitada a la entrega académica.
+No se presentan estas imágenes como material producido por el proyecto. El usuario confirmó que la página original permite su reutilización y que ya se emplean en la implementación; por ello forman parte de esta entrega académica y de su publicación asociada.

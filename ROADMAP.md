@@ -16,7 +16,7 @@ Fuente de verdad para la reconstrucción UI/UX de El Mercadito de Chiloé. Una c
 
 ### Cierre de implementación
 
-La implementación técnica de las fases 0–18 está completa y publicada. Las casillas que permanecen abiertas son verificaciones externas o decisiones de autorización que no deben simularse como resueltas.
+La implementación técnica de las fases 0–18 está completa y publicada. La autorización de reutilización de imágenes fue confirmada por el usuario a partir del permiso visible en la página original.
 
 - [x] Fase 0: roadmap creado y usado como fuente de verdad.
 - [x] Fase 1: sitio, carta, Maps, contacto e imágenes oficiales auditados; datos centralizados.
@@ -40,7 +40,7 @@ La implementación técnica de las fases 0–18 está completa y publicada. Las 
 
 **Evidencia local:** `npm run build` genera Inicio, El lugar, Carta, Planifica tu visita, Cómo llegar, Reservas, Galería heredada y 404. Navegador local confirmó un `main` y un `h1` por página, ausencia de overflow tras la corrección a 320 px, modal de platos, mapa diferido y flujo completo de Reservas demo.
 
-**Evidencia de cierre:** `npm run build` volvió a pasar el 5 de noviembre de 2026 y genera 8 páginas. El hero progresivo selecciona AVIF/WebP, conserva dimensiones y muestra placeholder/loader. El único pendiente abierto es la autorización definitiva para reutilizar públicamente las fotografías del sitio original; la procedencia está documentada en `public/images/mercadito/SOURCES.md`.
+**Evidencia de cierre:** `npm run build` volvió a pasar el 5 de noviembre de 2026 y genera 8 páginas. El hero progresivo selecciona AVIF/WebP, conserva dimensiones y muestra placeholder/loader. La autorización de reutilización de fotografías fue confirmada por el usuario y la procedencia está documentada en `public/images/mercadito/SOURCES.md`.
 
 **Identidad SVG:** el isotipo arquitectónico y el logotipo completo proporcionados por el usuario se integraron como `BrandLogo.astro`. El header usa isotipo con nombre legible en móvil y el footer conserva la composición completa. `Icon.astro` centraliza iconos lineales para menú, carta, ubicación, enlaces, teléfono y copia; los accesos rápidos ya no dependen de símbolos tipográficos.
 
@@ -58,7 +58,7 @@ La implementación técnica de las fases 0–18 está completa y publicada. Las 
 - [x] Verificar la ficha de Google Maps y sus coordenadas `-42.4793067, -73.7607173`.
 - [x] Retirar todos los datos, platos, precios y testimonios sin respaldo; el contenido visible usa datos centralizados y respaldados.
 - [x] Inventariar las fotografías publicadas en el sitio original.
-- [ ] Confirmar autorización definitiva de reutilización pública de las fotografías. Procedencia registrada en `public/images/mercadito/SOURCES.md`; pendiente autorización del restaurante.
+- [x] Confirmar autorización de reutilización pública de las fotografías mediante el permiso visible en la página original y la confirmación del usuario; procedencia registrada en `public/images/mercadito/SOURCES.md`.
 - [x] Preparar imágenes locales responsivas con dimensiones, `srcset`, `sizes` y textos alternativos.
 - [x] Centralizar navegación, datos del restaurante, FAQ, platos y fotografías en módulos y componentes reutilizables.
 
