@@ -1,0 +1,39 @@
+---
+interface Props { name: string; label: string; options: string[]; defaultValue?: string }
+const { name, label, options, defaultValue = options[0] } = Astro.props;
+const id = `select-${name}`;
+---
+
+<div class="relative mb-5 grid gap-2 text-xs font-bold" data-select-menu>
+  <span>{label}</span>
+  <input type="hidden" name={name} value={defaultValue} data-select-value />
+  <button type="button" class="flex w-full items-center justify-between border-0 border-b border-ink/15 bg-transparent p-2 text-left font-sans text-sm font-medium outline-none transition-colors hover:border-orange focus:border-orange" aria-haspopup="listbox" aria-expanded="false" aria-controls={id} data-select-trigger>
+    <span data-select-label>{defaultValue}</span><span class="text-orange transition-transform" data-select-arrow>⌄</span>
+  </button>
+  <div id={id} class="absolute left-0 right-0 top-full z-40 mt-2 hidden overflow-hidden rounded-lg border border-ink/10 bg-paper p-1 shadow-xl shadow-ink/15" role="listbox" data-select-list>
+    {options.map((option) => <button type="button" class:list={["block w-full rounded-md px-3 py-3 text-left text-sm font-medium transition-colors hover:bg-orange/10", option === defaultValue && "bg-orange/10 text-orange"]} role="option" aria-selected={option === defaultValue} data-select-option={option}>{option}</button>)}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-select-menu]').forEach((menu) => {
+    const trigger = menu.querySelector<HTMLButtonElement>('[data-select-trigger]');
+    const list = menu.querySelector<HTMLElement>('[data-select-list]');
+    const label = menu.querySelector<HTMLElement>('[data-select-label]');
+    const value = menu.querySelector<HTMLInputElement>('[data-select-value]');
+    const arrow = menu.querySelector<HTMLElement>('[data-select-arrow]');
+    const options = [...menu.querySelectorAll<HTMLButtonElement>('[data-select-option]')];
+    if (!trigger || !list || !label || !value || !arrow) return;
+    const close = () => { list.classList.add('hidden'); trigger.setAttribute('aria-expanded', 'false'); arrow.classList.remove('rotate-180'); };
+    const open = () => { list.classList.remove('hidden'); trigger.setAttribute('aria-expanded', 'true'); arrow.classList.add('rotate-180'); };
+    trigger.addEventListener('click', () => trigger.getAttribute('aria-expanded') === 'true' ? close() : open());
+    options.forEach((option) => option.addEventListener('click', () => {
+      label.textContent = option.dataset.selectOption ?? '';
+      value.value = option.dataset.selectOption ?? '';
+      options.forEach((item) => { item.classList.remove('bg-orange/10', 'text-orange'); item.setAttribute('aria-selected', 'false'); });
+      option.classList.add('bg-orange/10', 'text-orange'); option.setAttribute('aria-selected', 'true'); close(); trigger.focus();
+    }));
+    trigger.addEventListener('keydown', (event) => { if (event.key === 'Escape') close(); if (event.key === 'ArrowDown') { event.preventDefault(); open(); options[0]?.focus(); } });
+    document.addEventListener('click', (event) => { if (!menu.contains(event.target as Node)) close(); });
+  });
+</script>

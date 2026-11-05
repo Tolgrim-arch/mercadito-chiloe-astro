@@ -1,0 +1,11 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'DM Sans', sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --color-ink: #203b35;
+  --color-paper: #fbfaf6;
+  --color-cream: #f4f0e8;
+  --color-orange: #e36d3c;
+  --color-yellow: #edc95a;
+}
