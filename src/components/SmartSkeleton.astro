@@ -1,0 +1,44 @@
+---
+const path = Astro.url.pathname;
+const isGrid = path.includes('/carta') || path.includes('/galeria');
+const isForm = path.includes('/reservas');
+---
+
+<div data-smart-skeleton class="fixed inset-0 z-50 hidden bg-paper opacity-0 transition-opacity duration-200" aria-hidden="true" inert>
+  <div class="mx-auto mt-3 flex h-[68px] max-w-[1390px] items-center justify-between rounded-2xl border border-white/70 bg-white/70 px-6 shadow-sm md:px-[5vw]">
+    <div class="flex items-center gap-3"><span class="size-9 rounded-full bg-ink/10 motion-safe:animate-pulse"></span><span class="h-4 w-24 rounded-full bg-ink/10 motion-safe:animate-pulse"></span></div>
+    <div class="hidden gap-7 md:flex">{Array.from({ length: 5 }, () => <span class="h-3 w-20 rounded-full bg-ink/10 motion-safe:animate-pulse"></span>)}</div>
+    <span class="h-11 w-32 rounded bg-orange/20 motion-safe:animate-pulse"></span>
+  </div>
+  <div class:list={["mx-auto grid max-w-[1240px] gap-10 px-6 py-20 md:px-[5vw]", isGrid ? "md:grid-cols-3" : "md:grid-cols-2"]}>
+    {isGrid ? Array.from({ length: 6 }, () => <div class="space-y-4"><div class="aspect-square bg-cream motion-safe:animate-pulse"></div><div class="h-6 w-3/4 rounded-full bg-ink/10 motion-safe:animate-pulse"></div><div class="h-3 w-1/2 rounded-full bg-ink/10 motion-safe:animate-pulse"></div></div>) : <>
+      <div class="space-y-6 pt-6"><div class="h-3 w-40 rounded-full bg-orange/20 motion-safe:animate-pulse"></div><div class="h-16 w-full rounded bg-ink/10 motion-safe:animate-pulse"></div><div class="h-16 w-4/5 rounded bg-ink/10 motion-safe:animate-pulse"></div><div class="h-4 w-3/4 rounded-full bg-ink/10 motion-safe:animate-pulse"></div><div class="h-12 w-40 rounded bg-ink/10 motion-safe:animate-pulse"></div></div>
+      <div class:list={["bg-cream motion-safe:animate-pulse", isForm ? "min-h-[360px]" : "aspect-[.9]"]}></div>
+    </>}
+  </div>
+</div>
+
+<script>
+  const prepareSkeleton = () => {
+    const skeleton = document.querySelector('[data-smart-skeleton]');
+    if (!(skeleton instanceof HTMLElement)) return;
+    let visible = false;
+    const showTimer = window.setTimeout(() => {
+      visible = true;
+      skeleton.classList.remove('hidden');
+      requestAnimationFrame(() => skeleton.classList.add('opacity-100'));
+    }, 120);
+    const pageLoaded = document.readyState === 'complete'
+      ? Promise.resolve()
+      : new Promise<void>((resolve) => window.addEventListener('load', () => resolve(), { once: true }));
+    const fontsLoaded = document.fonts?.ready ?? Promise.resolve();
+    const timeout = new Promise<void>((resolve) => window.setTimeout(resolve, 2500));
+    Promise.race([Promise.all([pageLoaded, fontsLoaded]), timeout]).then(() => {
+      clearTimeout(showTimer);
+      if (!visible) return skeleton.remove();
+      skeleton.classList.remove('opacity-100');
+      window.setTimeout(() => skeleton.remove(), 200);
+    });
+  };
+  document.addEventListener('astro:page-load', prepareSkeleton);
+</script>
