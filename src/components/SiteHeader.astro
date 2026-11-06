@@ -18,7 +18,7 @@ const href = (route: string) => `${base}${route === '/' ? '/' : `${route}/`}`;
     <a class="flex min-h-11 items-center" href={href('/')} aria-label="El Mercadito de Chiloé, inicio"><BrandLogo class="text-forest" /></a>
     <nav class="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
       {links.map(([route, label, icon]) => (
-        <a class:list={[
+        <a data-astro-prefetch="hover" class:list={[
           "group relative inline-flex min-h-11 items-center gap-2 overflow-hidden rounded-full px-3.5 py-2 text-sm font-bold text-forest transition-transform duration-250 ease-spring transform-gpu hover:scale-[1.03] active:scale-[0.96]",
           path === route ? "text-terracotta" : "hover:text-terracotta"
         ]} href={href(route)} aria-current={path === route ? 'page' : undefined}>
@@ -32,7 +32,7 @@ const href = (route: string) => `${base}${route === '/' ? '/' : `${route}/`}`;
       ))}
     </nav>
     <div class="flex items-center gap-2">
-      <a class="hidden min-h-11 items-center gap-2 rounded-full bg-terracotta px-5 text-sm font-bold text-white transition-[transform,background-color] duration-250 ease-spring transform-gpu hover:scale-[1.03] hover:bg-terracotta-dark active:scale-[0.96] sm:inline-flex" href={href('/reservas')}>
+      <a data-astro-prefetch="hover" class="hidden min-h-11 items-center gap-2 rounded-full bg-terracotta px-5 text-sm font-bold text-white transition-[transform,background-color] duration-250 ease-spring transform-gpu hover:scale-[1.03] hover:bg-terracotta-dark active:scale-[0.96] sm:inline-flex" href={href('/reservas')}>
         <span class="grid size-7 place-items-center rounded-full bg-white/15 transition-transform duration-250 ease-spring group-hover:scale-105"><Icon name="calendar" class="size-3.5" /></span>
         Reservas demo
       </a>
