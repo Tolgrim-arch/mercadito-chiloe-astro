@@ -16,9 +16,9 @@
 html{scroll-behavior:smooth;scroll-padding-top:8.5rem}
 body{min-width:0;padding-bottom:5.5rem}
 ::selection{background:#edc95a;color:#203b35}
-[data-reveal]{opacity:1;transform:none}
-[data-reveal][data-reveal-ready]:not([data-reveal-visible]){opacity:0;transform:translateY(12px)}
-[data-reveal][data-reveal-ready]{transition:opacity .38s ease,transform .38s ease}
+[data-reveal]{opacity:1;transform:none;transition:opacity .38s ease,transform .38s ease}
+.js [data-reveal]:not([data-reveal-visible]){opacity:0;transform:translateY(12px)}
+[data-reveal-visible]{opacity:1!important;transform:none!important}
 :focus-visible{outline:2px solid #b84d2d;outline-offset:4px}
 a,button,summary,input,select{transition-duration:.2s}
 main a:is([class*="rounded-"], [role="button"], [class*="min-h-"]) { display: inline-flex; align-items: center; min-height: 2.75rem; }

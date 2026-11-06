@@ -98,27 +98,29 @@ const structuredData = {
         if (revealObserver) {
           revealObserver.disconnect();
         }
-        const items = document.querySelectorAll('[data-reveal]:not([data-reveal-ready])');
+        const items = document.querySelectorAll('[data-reveal]:not([data-reveal-visible])');
         if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
-          items.forEach((el) => el.setAttribute('data-reveal-visible', ''));
+          document.querySelectorAll('[data-reveal]').forEach((el) => el.setAttribute('data-reveal-visible', ''));
           return;
         }
         revealObserver = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
+            if (entry.isIntersecting || entry.intersectionRatio > 0) {
               entry.target.setAttribute('data-reveal-visible', '');
-              revealObserver.unobserve(entry.target);
+              revealObserver?.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+        }, { threshold: 0.01, rootMargin: '80px 0px 80px 0px' });
 
-        items.forEach((el) => {
-          const siblings = el.parentElement ? [...el.parentElement.children].filter((child) => child.hasAttribute('data-reveal')) : [];
-          const index = siblings.indexOf(el);
-          if (index > 0 && el instanceof HTMLElement) {
-            el.style.transitionDelay = `${Math.min(index * 60, 180)}ms`;
+        items.forEach((el, index) => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight + 80 && rect.bottom > -80) {
+            el.setAttribute('data-reveal-visible', '');
+            return;
           }
-          el.setAttribute('data-reveal-ready', '');
+          if (index > 0 && el instanceof HTMLElement) {
+            el.style.transitionDelay = `${Math.min((index % 4) * 60, 180)}ms`;
+          }
           revealObserver.observe(el);
         });
       };
