@@ -87,9 +87,9 @@ const structuredData = {
     <slot name="head" />
     <ClientRouter />
   </head>
-  <body id="top" class="bg-paper text-forest antialiased">
+  <body id="top" class="bg-paper text-forest antialiased min-h-screen flex flex-col">
     <SiteHeader />
-    <main id="contenido"><slot /></main>
+    <main id="contenido" class="flex-1 pb-16 lg:pb-0"><slot /></main>
     <SiteFooter />
     <MobileQuickActions />
     <script>
