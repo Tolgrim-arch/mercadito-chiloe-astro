@@ -48,3 +48,23 @@ const nav = [
     </div>
   </div>
 </footer>
+<script>
+  const initFooterScroll = () => {
+    document.querySelectorAll('[data-scroll-home]').forEach((link) => {
+      if (!(link instanceof HTMLAnchorElement) || link.dataset.scrollReady) return;
+      link.dataset.scrollReady = 'true';
+      link.addEventListener('click', (event) => {
+        const target = new URL(link.href, window.location.href);
+        if (target.pathname !== window.location.pathname) return;
+        event.preventDefault();
+        window.history.replaceState({}, '', target.pathname);
+        window.scrollTo({
+          top: 0,
+          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+        });
+      });
+    });
+  };
+  document.addEventListener('astro:page-load', initFooterScroll);
+  initFooterScroll();
+</script>

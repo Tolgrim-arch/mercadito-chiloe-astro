@@ -80,6 +80,8 @@ const structuredData = {
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={`${Astro.site ?? 'https://tolgrim-arch.github.io'}${base}/images/mercadito/hero/hero-768.webp`} />
+    <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={`${base}/favicon.svg`} />
     <style is:inline set:html={fontFaces}></style>
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
     <title>{title}</title>
