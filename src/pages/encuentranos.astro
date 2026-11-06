@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { restaurant } from '../data/restaurant';
+import MapEmbed from '../components/MapEmbed.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <BaseLayout title="Cómo llegar | El Mercadito de Chiloé" description="Encuentra El Mercadito de Chiloé en Pedro Montt 210, Castro: mapa interactivo, horarios oficiales, teléfono y acceso directo a Google Maps.">
@@ -44,38 +45,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       </div>
     </div>
 
-    <div data-reveal class="overflow-hidden rounded-3xl bg-forest shadow-xl text-white">
-      <div class="grid min-h-[420px] place-items-center p-8 text-center" data-map-placeholder>
-        <div>
-          <p class="font-serif text-4xl">Mapa del restaurante</p>
-          <p class="mx-auto mt-4 max-w-sm text-white/80">El mapa interactivo se carga solo cuando lo solicitas para optimizar tu conexión y privacidad. La ubicación externa permanece siempre disponible.</p>
-          <button class="mt-6 inline-flex min-h-12 items-center rounded-full bg-yellow px-6 font-bold text-forest transition hover:bg-yellow/90" type="button" data-load-map>
-            Cargar mapa interactivo
-          </button>
-        </div>
-      </div>
-    </div>
+    <div data-reveal class="overflow-hidden rounded-3xl bg-white shadow-xl"><MapEmbed /></div>
   </section>
 
   <script>
-    const initMap = () => {
-      const button = document.querySelector('[data-load-map]');
-      const holder = document.querySelector('[data-map-placeholder]');
-      if (!(button instanceof HTMLButtonElement) || !(holder instanceof HTMLElement) || button.dataset.ready) return;
-      button.dataset.ready = '1';
-
-      button.addEventListener('click', () => {
-        const iframe = document.createElement('iframe');
-        iframe.title = 'Mapa de ubicación de El Mercadito de Chiloé en Castro';
-        iframe.loading = 'lazy';
-        iframe.className = 'h-[420px] w-full border-0 rounded-3xl';
-        iframe.tabIndex = 0;
-        iframe.src = 'https://www.google.com/maps?q=-42.4793067,-73.7607173&z=17&output=embed';
-        holder.replaceChildren(iframe);
-        iframe.focus();
-      });
-    };
-
     const initCopy = () => {
       const button = document.querySelector('[data-copy-address]');
       const status = document.querySelector('[data-copy-status]');
@@ -96,11 +69,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       });
     };
 
-    document.addEventListener('astro:page-load', () => {
-      initMap();
-      initCopy();
-    });
-    initMap();
+    document.addEventListener('astro:page-load', initCopy);
     initCopy();
   </script>
 </BaseLayout>

@@ -1,0 +1,7 @@
+---
+interface Props { class?: string; title?: string; }
+const { class: className = '', title = 'Mapa de El Mercadito de Chiloé en Castro' } = Astro.props;
+---
+<div class:list={["bg-forest/5 p-2 lg:p-3", className]}>
+  <iframe class="min-h-[360px] w-full border-0 lg:min-h-[456px]" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1471.2948318499068!2d-73.7612275!3d-42.4790151!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x962219e4bb0ac893%3A0x4e0473bf6e49d021!2sEl%20Mercadito%20de%20Chilo%C3%A9!5e0!3m2!1ses-419!2scl!4v1793911011318!5m2!1ses-419!2scl" {title} loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+</div>

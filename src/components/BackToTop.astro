@@ -1,0 +1,24 @@
+<button
+  type="button"
+  class="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-40 inline-flex size-14 -translate-x-1/2 items-center justify-center rounded-full border border-white/70 bg-white/25 text-terracotta shadow-[0_10px_30px_rgba(32,59,53,.22),inset_0_1px_0_rgba(255,255,255,.6)] ring-1 ring-white/25 backdrop-blur-2xl transition-[transform,background-color,box-shadow] duration-300 hover:-translate-x-1/2 hover:-translate-y-0.5 hover:bg-white/45 hover:shadow-[0_14px_34px_rgba(32,59,53,.26),inset_0_1px_0_rgba(255,255,255,.8)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
+  aria-label="Volver arriba"
+  data-back-to-top
+>
+  <svg viewBox="0 0 24 24" class="size-5" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m18 15-6-6-6 6" />
+  </svg>
+</button>
+
+<script>
+  const initBackToTop = () => {
+    const button = document.querySelector('[data-back-to-top]');
+    if (!(button instanceof HTMLButtonElement) || button.dataset.ready) return;
+    button.dataset.ready = '1';
+    button.addEventListener('click', () => window.scrollTo({
+      top: 0,
+      behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+    }));
+  };
+  document.addEventListener('astro:page-load', initBackToTop);
+  initBackToTop();
+</script>

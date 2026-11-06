@@ -1,0 +1,50 @@
+---
+interface Item { question: string; answer: string; }
+interface Props { items: Item[]; initialOpen?: number; class?: string; }
+const { items, initialOpen = 0, class: className = '' } = Astro.props;
+---
+<div class:list={["divide-y divide-forest/15", className]} data-accordion-group>
+  {items.map(({ question, answer }, index) => (
+    <details data-accordion data-reveal class="group py-5" open={index === initialOpen}>
+      <summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-5 text-lg font-bold">
+        {question}
+        <span class="text-2xl text-terracotta transition-transform duration-500 ease-out group-open:rotate-45" aria-hidden="true">+</span>
+      </summary>
+      <div data-accordion-content class="overflow-hidden opacity-0 transition-[max-height,opacity] duration-500 ease-[cubic-bezier(.22,1,.36,1)]">
+        <p class="mt-4 leading-relaxed text-forest/70">{answer}</p>
+      </div>
+    </details>
+  ))}
+</div>
+
+<script>
+  const initAccordions = () => {
+    document.querySelectorAll('details[data-accordion]:not([data-accordion-ready])').forEach((details) => {
+      const summary = details.querySelector('summary');
+      const content = details.querySelector('[data-accordion-content]');
+      if (!(summary instanceof HTMLElement) || !(content instanceof HTMLElement)) return;
+      details.dataset.accordionReady = '1';
+      const duration = 500;
+      const openContent = () => {
+        content.style.maxHeight = `${content.scrollHeight}px`;
+        content.style.opacity = '1';
+      };
+      const closeContent = () => {
+        content.style.maxHeight = '0px';
+        content.style.opacity = '0';
+      };
+      details.open ? openContent() : closeContent();
+      summary.addEventListener('click', (event) => {
+        if (!details.open) {
+          window.setTimeout(openContent, 0);
+          return;
+        }
+        event.preventDefault();
+        closeContent();
+        window.setTimeout(() => { details.open = false; }, duration);
+      });
+    });
+  };
+  document.addEventListener('astro:page-load', initAccordions);
+  initAccordions();
+</script>

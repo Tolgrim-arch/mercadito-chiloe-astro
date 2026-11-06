@@ -13,8 +13,8 @@ const links = [
 const href = (route: string) => `${base}${route === '/' ? '/' : `${route}/`}`;
 ---
 <a class="fixed left-4 top-2 z-[60] -translate-y-24 rounded-full bg-forest px-4 py-3 font-bold text-white transition focus:translate-y-0" href="#contenido">Saltar al contenido</a>
-<header transition:persist="site-header" class="sticky top-0 z-50 px-3 pt-3 sm:px-5" data-site-header>
-  <div class="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-5 rounded-[1.35rem] border border-white/75 bg-paper/72 px-4 shadow-[0_12px_38px_rgba(25,55,47,0.12),inset_0_1px_0_rgba(255,255,255,0.8)] ring-1 ring-forest/5 backdrop-blur-2xl backdrop-saturate-150 transition-shadow duration-300 sm:px-6 lg:px-8">
+<header transition:persist="site-header" class="sticky top-0 z-50 px-3 pt-0 sm:px-5" data-site-header>
+  <div class="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-5 rounded-[1.35rem] border border-white/45 bg-paper/35 px-4 shadow-[0_12px_38px_rgba(25,55,47,0.12),inset_0_1px_0_rgba(255,255,255,0.8)] ring-1 ring-forest/5 backdrop-blur-2xl backdrop-saturate-150 transition-shadow duration-300 sm:px-6 lg:px-8">
     <a class="flex min-h-11 items-center" href={href('/')} aria-label="El Mercadito de Chiloé, inicio"><BrandLogo class="text-forest" /></a>
     <nav class="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
       {links.map(([route, label, icon]) => (

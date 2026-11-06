@@ -3,6 +3,7 @@ import { ClientRouter } from 'astro:transitions';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import MobileQuickActions from '../components/MobileQuickActions.astro';
+import BackToTop from '../components/BackToTop.astro';
 import { restaurant } from '../data/restaurant';
 import '../styles/tailwind.css';
 
@@ -102,6 +103,7 @@ const structuredData = {
     <main id="contenido" class="flex-1 pb-16 lg:pb-0"><slot /></main>
     <SiteFooter />
     <MobileQuickActions />
+    <BackToTop />
     <script>
       document.addEventListener('astro:before-preparation', () => {
         const bar = document.getElementById('nav-progress');

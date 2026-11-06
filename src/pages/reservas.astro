@@ -18,7 +18,7 @@ const fields = [
           <a class="inline-flex min-h-12 items-center rounded-full border border-forest/30 px-6 font-bold text-forest transition hover:border-forest hover:bg-forest hover:text-white" href={restaurant.phoneHref}>{restaurant.phoneDisplay}</a>
         </div>
       </div>
-      <form data-demo-form class="rounded-3xl bg-paper p-6 shadow-xl md:p-8" novalidate>
+      <form data-demo-form class="rounded-3xl bg-paper p-6 shadow-xl md:p-8" novalidate onsubmit="return false;">
         <div data-form-fields>
           {fields.map((field) => (
             <label class="mt-5 grid gap-2 font-bold text-forest first:mt-0">

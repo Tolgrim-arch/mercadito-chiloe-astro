@@ -8,6 +8,7 @@ export default defineConfig({
   site: isVercel ? `https://${productionHost}` : 'https://tolgrim-arch.github.io',
   base: isVercel ? '/' : '/mercadito-chiloe-astro',
   output: 'static',
+  devToolbar: { enabled: false },
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'load'
