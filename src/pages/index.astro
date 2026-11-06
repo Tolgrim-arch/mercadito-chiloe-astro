@@ -52,6 +52,7 @@ const reviews = [
         <p class="mt-3 min-h-[4.5rem] text-sm leading-relaxed text-forest/80" data-review-text>{reviews[0][1]}</p>
         <div class="mt-4 flex items-center justify-between border-t border-forest/10 pt-3"><span class="text-xs text-forest/50">Reseña verificada</span><div class="flex gap-1" aria-label="Navegar reseñas"><button type="button" class="grid size-8 place-items-center rounded-full border border-forest/15 text-forest transition hover:bg-cream" aria-label="Reseña anterior" data-review-prev>←</button><button type="button" class="grid size-8 place-items-center rounded-full border border-forest/15 text-forest transition hover:bg-cream" aria-label="Siguiente reseña" data-review-next>→</button></div></div>
       </div>
+      <div class="mt-2 h-1 overflow-hidden rounded-full bg-white/25" aria-hidden="true"><span class="review-progress block h-full origin-left rounded-full bg-white" data-review-progress></span></div>
     </aside>
     <figure class="home-photo absolute inset-0 -z-20 bg-cream" style={`background-image: url('${base}/images/mercadito/hero/portada-inicio-placeholder.webp')`}>
       <img src={`${base}/images/mercadito/hero/portada-inicio.webp`} width="1676" height="939" alt="Comedor de El Mercadito de Chiloé, con mesas coloridas y decoración de madera" fetchpriority="high" decoding="async" class="is-loading aspect-[4/3] w-full object-cover lg:aspect-[1.08]" onload="this.classList.remove('is-loading')"/>
@@ -70,8 +71,13 @@ const reviews = [
     .review-card { will-change: transform, opacity; }
     .review-card.review-card-exit { animation: review-card-exit 360ms cubic-bezier(.4,0,1,1) forwards; }
     .review-card.review-card-enter { animation: review-card-enter 460ms cubic-bezier(0,0,.2,1) both; }
+    .review-progress { animation: review-progress-countdown 6s linear both; }
+    .review-progress.review-progress-refresh { animation: review-progress-refresh 320ms cubic-bezier(.22,1,.36,1) both; }
+    .reviews-carousel:hover .review-progress, .reviews-carousel:focus-within .review-progress { animation-play-state: paused; }
     @keyframes review-card-exit { to { opacity: 0; transform: translate3d(-28px, 0, 0) scale(.94); } }
     @keyframes review-card-enter { from { opacity: 0; transform: translate3d(28px, 0, 0) scale(.94); } to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); } }
+    @keyframes review-progress-countdown { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+    @keyframes review-progress-refresh { from { transform: scaleX(0); } to { transform: scaleX(1); } }
     @media (prefers-reduced-motion: reduce) { .review-card { animation: none; } }
     .home-copy > p, .home-copy > h1, .home-copy > div { max-width: 34rem; }
     .home-copy h1 { font-size: clamp(2.6rem, 4.5vw, 4.5rem); }
@@ -94,7 +100,8 @@ const reviews = [
         const text = carousel.querySelector('[data-review-text]');
         const prev = carousel.querySelector('[data-review-prev]');
         const next = carousel.querySelector('[data-review-next]');
-        if (!(card instanceof HTMLElement) || !(name instanceof HTMLElement) || !(date instanceof HTMLElement) || !(text instanceof HTMLElement) || !(prev instanceof HTMLButtonElement) || !(next instanceof HTMLButtonElement)) return;
+        const progress = carousel.querySelector('[data-review-progress]');
+        if (!(card instanceof HTMLElement) || !(name instanceof HTMLElement) || !(date instanceof HTMLElement) || !(text instanceof HTMLElement) || !(prev instanceof HTMLButtonElement) || !(next instanceof HTMLButtonElement) || !(progress instanceof HTMLElement)) return;
         let index = 0;
         let timer;
         const render = (nextIndex) => {
@@ -105,6 +112,16 @@ const reviews = [
           date.textContent = published;
         };
         let transitioning = false;
+        const resetProgress = () => {
+          progress.classList.remove('review-progress');
+          void progress.offsetWidth;
+          progress.classList.add('review-progress-refresh');
+          window.setTimeout(() => {
+            progress.classList.remove('review-progress-refresh');
+            void progress.offsetWidth;
+            progress.classList.add('review-progress');
+          }, 320);
+        };
         const changeReview = (nextIndex) => {
           if (transitioning) return;
           transitioning = true;
@@ -114,15 +131,16 @@ const reviews = [
             render(nextIndex);
             card.classList.remove('review-card-exit');
             card.classList.add('review-card-enter');
+            resetProgress();
             transitioning = false;
           }, 360);
         };
-        const restart = () => { window.clearInterval(timer); timer = window.setInterval(() => changeReview(index + 1), 10000); };
+        const restart = () => { window.clearInterval(timer); progress.style.animationPlayState = 'running'; timer = window.setInterval(() => changeReview(index + 1), 6000); };
         prev.addEventListener('click', () => { changeReview(index - 1); restart(); });
         next.addEventListener('click', () => { changeReview(index + 1); restart(); });
-        carousel.addEventListener('mouseenter', () => window.clearInterval(timer));
+        carousel.addEventListener('mouseenter', () => { window.clearInterval(timer); progress.style.animationPlayState = 'paused'; });
         carousel.addEventListener('mouseleave', restart);
-        carousel.addEventListener('focusin', () => window.clearInterval(timer));
+        carousel.addEventListener('focusin', () => { window.clearInterval(timer); progress.style.animationPlayState = 'paused'; });
         carousel.addEventListener('focusout', (event) => { if (!carousel.contains(event.relatedTarget)) restart(); });
         carousel.dataset.ready = 'true';
         restart();
