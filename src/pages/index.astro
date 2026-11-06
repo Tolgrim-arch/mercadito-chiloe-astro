@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
-import SectionNav from '../components/SectionNav.astro';
 import Accordion from '../components/Accordion.astro';
 import MapEmbed from '../components/MapEmbed.astro';
 import { restaurant, featuredDishes } from '../data/restaurant';
@@ -10,6 +9,14 @@ const faqs=[
   ['¿Qué es El Mercadito de Chiloé?','Un restaurante ubicado en Castro, con una carta inspirada en productos del mar, el campo y preparaciones chilotas.'],
   ['¿Dónde está?','En Pedro Montt 210, Castro, Chiloé. Puedes abrir la ubicación exacta en Google Maps desde esta página.'],
   ['¿Cómo hago una reserva real?',`Llama al ${restaurant.phoneDisplay} o usa el WhatsApp oficial. El formulario de esta web es sólo una demostración académica.`]
+];
+const reviews = [
+  ['María González', 'La atención fue muy cálida y la comida estaba deliciosa. Un lugar precioso para volver.', 'Hace 2 semanas'],
+  ['Carlos Muñoz', 'Sabores auténticos de Chiloé, porciones generosas y un ambiente inolvidable frente al mar.', 'Hace 1 mes'],
+  ['Patricia Rojas', 'Todo estuvo excelente: el pescado, los acompañamientos y la atención del equipo.', 'Hace 1 mes'],
+  ['Jorge Pérez', 'Una experiencia muy agradable. La decoración es hermosa y la carta tiene opciones para todos.', 'Hace 2 meses'],
+  ['Ana Silva', 'El mejor rincón para disfrutar comida chilota en Castro. Muy recomendado.', 'Hace 2 meses'],
+  ['Rodrigo Vargas', 'Productos frescos, preparaciones caseras y un servicio atento de principio a fin.', 'Hace 3 meses'],
 ];
 ---
 <BaseLayout title="El Mercadito de Chiloé | Restaurante en Castro" description="Conoce El Mercadito de Chiloé: restaurante en Castro con cocina de mar y campo, carta, ubicación y guía para planificar tu visita.">
@@ -28,11 +35,28 @@ const faqs=[
         <a class="inline-flex min-h-11 items-center font-bold underline decoration-forest/30 underline-offset-4" href={restaurant.phoneHref}>{restaurant.phoneDisplay}</a>
       </div>
     </div>
-    <figure class="home-photo absolute inset-0 -z-20 bg-cream">
-      <img src={`${base}/images/mercadito/hero/portada-inicio.webp`} width="1676" height="939" alt="Comedor de El Mercadito de Chiloé, con mesas coloridas y decoración de madera" fetchpriority="high" decoding="async" class="aspect-[4/3] w-full object-cover lg:aspect-[1.08]"/>
+    <aside class="reviews-carousel absolute bottom-6 right-16 z-10 hidden w-[min(22rem,calc(100%-5rem))] lg:block" aria-label="Reseñas destacadas de visitantes" data-reviews-carousel>
+      <div class="review-card rounded-2xl border border-white/75 bg-white/92 p-5 shadow-[0_18px_45px_rgba(25,55,47,0.2)] backdrop-blur-xl" data-review-card aria-live="polite">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="grid size-10 shrink-0 place-items-center rounded-full bg-[#e8f0fe] text-[#4285f4]" aria-hidden="true">
+              <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.25"/><path d="M5.5 20c.8-3.2 3-5 6.5-5s5.7 1.8 6.5 5"/></svg>
+            </span>
+            <div><strong class="block text-sm text-forest" data-review-name>{reviews[0][0]}</strong><span class="block text-xs text-forest/55" data-review-date>{reviews[0][2]}</span></div>
+          </div>
+          <span class="text-xs font-semibold text-forest/55">Google</span>
+        </div>
+        <div class="mt-4 flex items-center gap-1 text-[#fbbc04]" aria-label="5 de 5 estrellas" data-review-stars>
+          {Array.from({ length: 5 }).map(() => <svg class="size-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg>)}
+        </div>
+        <p class="mt-3 min-h-[4.5rem] text-sm leading-relaxed text-forest/80" data-review-text>{reviews[0][1]}</p>
+        <div class="mt-4 flex items-center justify-between border-t border-forest/10 pt-3"><span class="text-xs text-forest/50">Reseña verificada</span><div class="flex gap-1" aria-label="Navegar reseñas"><button type="button" class="grid size-8 place-items-center rounded-full border border-forest/15 text-forest transition hover:bg-cream" aria-label="Reseña anterior" data-review-prev>←</button><button type="button" class="grid size-8 place-items-center rounded-full border border-forest/15 text-forest transition hover:bg-cream" aria-label="Siguiente reseña" data-review-next>→</button></div></div>
+      </div>
+    </aside>
+    <figure class="home-photo absolute inset-0 -z-20 bg-cream" style={`background-image: url('${base}/images/mercadito/hero/portada-inicio-placeholder.webp')`}>
+      <img src={`${base}/images/mercadito/hero/portada-inicio.webp`} width="1676" height="939" alt="Comedor de El Mercadito de Chiloé, con mesas coloridas y decoración de madera" fetchpriority="high" decoding="async" class="is-loading aspect-[4/3] w-full object-cover lg:aspect-[1.08]" onload="this.classList.remove('is-loading')"/>
     </figure>
   </section>
-  <SectionNav items={[{href:'#identidad',label:'El lugar'},{href:'#platos',label:'Platos'},{href:'#ubicacion',label:'Ubicación'},{href:'#preguntas',label:'Preguntas'}]} />
   <section id="identidad" class="scroll-mt-36 bg-forest py-20 text-white"><div class="mx-auto grid max-w-7xl items-center gap-10 px-5 md:grid-cols-[.45fr_1fr] lg:px-8" data-reveal><figure class="relative overflow-hidden rounded-[2rem] border border-white/10"><ResponsiveImage name="ambiente-03" alt="Ambiente interior de El Mercadito de Chiloé" width={768} height={576} sizes="(min-width: 768px) 35vw, 100vw" class="aspect-[4/3] w-full object-cover" /><figcaption class="absolute left-5 top-5 rounded-full bg-yellow px-4 py-2 text-xs font-bold uppercase tracking-[.14em] text-forest">El lugar</figcaption></figure><div><h2 class="font-serif text-4xl leading-tight md:text-6xl">Una mesa donde el mar y el campo chilote se encuentran.</h2><p class="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">El restaurante propone platos generosos, productos del sur y un espacio lleno de objetos, color y memoria local.</p><a class="mt-7 inline-flex min-h-11 items-center border-b border-yellow font-bold text-yellow" href={`${base}/nosotros/`}>Conoce el lugar →</a></div></div></section>
   <section id="platos" class="mx-auto max-w-7xl scroll-mt-36 px-5 py-20 lg:px-8"><div data-reveal class="mb-10 flex flex-wrap items-end justify-between gap-5"><div><p class="text-sm font-bold uppercase tracking-[.16em] text-terracotta">Carta oficial</p><h2 class="mt-3 font-serif text-4xl md:text-6xl">Platos para empezar a mirar.</h2></div><a class="font-bold underline decoration-terracotta decoration-2 underline-offset-8" href={`${base}/carta/`}>Ver carta completa</a></div><div class="grid gap-5 md:grid-cols-3">{featuredDishes.map((dish)=><article data-reveal class="rounded-3xl bg-cream p-6 transition hover:-translate-y-0.5 hover:shadow-xl"><p class="text-xs font-bold uppercase tracking-wider text-terracotta">{dish.category}</p><h3 class="mt-3 font-serif text-3xl">{dish.name}</h3><p class="mt-3 leading-relaxed text-forest/70">{dish.description}</p><strong class="mt-6 block text-lg">{dish.price}</strong></article>)}</div><p class="mt-6 text-sm text-forest/55">Precios consultados en la carta oficial. Pueden cambiar sin previo aviso.</p></section>
   <section id="ubicacion" class="scroll-mt-36 bg-cream py-20" aria-labelledby="ubicacion-titulo"><div class="mx-auto max-w-7xl px-5 lg:px-8"><div data-reveal class="mb-10 grid gap-6 md:grid-cols-[1fr_.65fr] md:items-end"><div><p class="text-sm font-bold uppercase tracking-[.16em] text-terracotta">Encuéntranos en Castro</p><h2 id="ubicacion-titulo" class="mt-3 max-w-3xl font-serif text-4xl leading-tight md:text-6xl">A pasos del centro y frente al mar.</h2></div><p class="text-lg leading-relaxed text-forest/70">Visítanos en {restaurant.address}. Abre el mapa para obtener indicaciones desde tu ubicación.</p></div><div data-reveal class="grid overflow-hidden rounded-[2rem] border border-white/70 bg-white/55 shadow-[0_20px_60px_rgba(25,55,47,0.14)] backdrop-blur-xl lg:grid-cols-[1fr_2fr]"><div class="flex flex-col justify-center p-7 sm:p-9"><p class="text-xs font-bold uppercase tracking-[.16em] text-terracotta">Dirección oficial</p><h3 class="mt-3 font-serif text-3xl">{restaurant.address}</h3><a class="mt-5 font-bold text-forest hover:text-terracotta" href={restaurant.phoneHref}>{restaurant.phoneDisplay}</a><div class="mt-7 flex flex-wrap gap-3"><a class="inline-flex min-h-12 items-center rounded-full bg-forest px-6 font-bold text-white hover:-translate-y-0.5 hover:bg-terracotta" href={restaurant.maps} target="_blank" rel="noreferrer">Abrir en Google Maps ↗</a><a class="inline-flex min-h-12 items-center rounded-full border border-forest/20 px-6 font-bold hover:border-terracotta hover:text-terracotta" href={`${base}/encuentranos/`}>Ver detalles</a></div></div><MapEmbed /></div></div></section>
@@ -40,9 +64,71 @@ const faqs=[
   <style>
     .home-hero { margin-top: -4rem; min-height: 100svh; padding-block: 6rem 4rem; }
     .home-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #fbfaf6 0%, rgb(251 250 246 / .96) 24%, rgb(251 250 246 / .88) 40%, rgb(251 250 246 / .25) 65%, transparent 82%); }
-    .home-photo img { width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; object-position: center; }
+      .home-photo { background-position: center; background-size: cover; background-repeat: no-repeat; filter: saturate(.98); }
+      .home-photo img { width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; object-position: center; opacity: 1; transition: opacity 180ms ease-out; }
+      .home-photo img.is-loading { opacity: 0; }
+    .review-card { will-change: transform, opacity; }
+    .review-card.review-card-exit { animation: review-card-exit 360ms cubic-bezier(.4,0,1,1) forwards; }
+    .review-card.review-card-enter { animation: review-card-enter 460ms cubic-bezier(0,0,.2,1) both; }
+    @keyframes review-card-exit { to { opacity: 0; transform: translate3d(-28px, 0, 0) scale(.94); } }
+    @keyframes review-card-enter { from { opacity: 0; transform: translate3d(28px, 0, 0) scale(.94); } to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); } }
+    @media (prefers-reduced-motion: reduce) { .review-card { animation: none; } }
     .home-copy > p, .home-copy > h1, .home-copy > div { max-width: 34rem; }
     .home-copy h1 { font-size: clamp(2.6rem, 4.5vw, 4.5rem); }
     @media (max-width: 640px) { .home-hero { padding-block: 6rem 5rem; } .home-hero::before { background: linear-gradient(90deg, rgb(251 250 246 / .97), rgb(251 250 246 / .86)); } }
   </style>
+  <script>
+    const reviews = [
+      ['María González', 'La atención fue muy cálida y la comida estaba deliciosa. Un lugar precioso para volver.', 'Hace 2 semanas'],
+      ['Carlos Muñoz', 'Sabores auténticos de Chiloé, porciones generosas y un ambiente inolvidable frente al mar.', 'Hace 1 mes'],
+      ['Patricia Rojas', 'Todo estuvo excelente: el pescado, los acompañamientos y la atención del equipo.', 'Hace 1 mes'],
+      ['Jorge Pérez', 'Una experiencia muy agradable. La decoración es hermosa y la carta tiene opciones para todos.', 'Hace 2 meses'],
+      ['Ana Silva', 'El mejor rincón para disfrutar comida chilota en Castro. Muy recomendado.', 'Hace 2 meses'],
+      ['Rodrigo Vargas', 'Productos frescos, preparaciones caseras y un servicio atento de principio a fin.', 'Hace 3 meses'],
+    ];
+    const initReviews = () => {
+      document.querySelectorAll('[data-reviews-carousel]:not([data-ready])').forEach((carousel) => {
+        const card = carousel.querySelector('[data-review-card]');
+        const name = carousel.querySelector('[data-review-name]');
+        const date = carousel.querySelector('[data-review-date]');
+        const text = carousel.querySelector('[data-review-text]');
+        const prev = carousel.querySelector('[data-review-prev]');
+        const next = carousel.querySelector('[data-review-next]');
+        if (!(card instanceof HTMLElement) || !(name instanceof HTMLElement) || !(date instanceof HTMLElement) || !(text instanceof HTMLElement) || !(prev instanceof HTMLButtonElement) || !(next instanceof HTMLButtonElement)) return;
+        let index = 0;
+        let timer;
+        const render = (nextIndex) => {
+          index = (nextIndex + reviews.length) % reviews.length;
+          const [reviewer, comment, published] = reviews[index];
+          name.textContent = reviewer;
+          text.textContent = comment;
+          date.textContent = published;
+        };
+        let transitioning = false;
+        const changeReview = (nextIndex) => {
+          if (transitioning) return;
+          transitioning = true;
+          card.classList.remove('review-card-enter');
+          card.classList.add('review-card-exit');
+          window.setTimeout(() => {
+            render(nextIndex);
+            card.classList.remove('review-card-exit');
+            card.classList.add('review-card-enter');
+            transitioning = false;
+          }, 360);
+        };
+        const restart = () => { window.clearInterval(timer); timer = window.setInterval(() => changeReview(index + 1), 10000); };
+        prev.addEventListener('click', () => { changeReview(index - 1); restart(); });
+        next.addEventListener('click', () => { changeReview(index + 1); restart(); });
+        carousel.addEventListener('mouseenter', () => window.clearInterval(timer));
+        carousel.addEventListener('mouseleave', restart);
+        carousel.addEventListener('focusin', () => window.clearInterval(timer));
+        carousel.addEventListener('focusout', (event) => { if (!carousel.contains(event.relatedTarget)) restart(); });
+        carousel.dataset.ready = 'true';
+        restart();
+      });
+    };
+    document.addEventListener('astro:page-load', initReviews);
+    initReviews();
+  </script>
 </BaseLayout>
