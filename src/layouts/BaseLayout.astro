@@ -95,6 +95,10 @@ const structuredData = {
     <ClientRouter />
     <style is:inline>
       #nav-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#edc95a,#b84d2d);z-index:9999;width:0%;opacity:0;pointer-events:none;transition:width .2s ease-out,opacity .25s ease-out}
+      :is(a.inline-flex,button):not([data-back-to-top]){transition:transform .22s cubic-bezier(.22,1,.36,1),background-color .22s ease,border-color .22s ease,color .22s ease,box-shadow .22s ease}
+      :is(a.inline-flex,button):not([data-back-to-top]):hover{transform:scale(1.02)}
+      :is(a.inline-flex,button):not([data-back-to-top]):active{transform:scale(.99)}
+      @media (prefers-reduced-motion:reduce){:is(a.inline-flex,button):not([data-back-to-top]){transition:none}:is(a.inline-flex,button):not([data-back-to-top]):hover,:is(a.inline-flex,button):not([data-back-to-top]):active{transform:none}}
     </style>
   </head>
   <body id="top" class="bg-paper text-forest antialiased min-h-screen flex flex-col">
