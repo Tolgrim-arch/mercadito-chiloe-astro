@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import MobileQuickActions from '../components/MobileQuickActions.astro';
@@ -87,6 +88,7 @@ const structuredData = {
     <title>{title}</title>
     <script is:inline>document.documentElement.classList.add('js')</script>
     <slot name="head" />
+    <ClientRouter />
   </head>
   <body id="top" class="bg-paper text-forest antialiased min-h-screen flex flex-col">
     <SiteHeader />

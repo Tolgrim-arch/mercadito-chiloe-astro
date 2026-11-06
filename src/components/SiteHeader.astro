@@ -13,12 +13,12 @@ const links = [
 const href = (route: string) => `${base}${route === '/' ? '/' : `${route}/`}`;
 ---
 <a class="fixed left-4 top-2 z-[60] -translate-y-24 rounded-full bg-forest px-4 py-3 font-bold text-white transition focus:translate-y-0" href="#contenido">Saltar al contenido</a>
-<header class="sticky top-0 z-50 px-3 pt-3 sm:px-5" data-site-header>
+<header transition:persist="site-header" class="sticky top-0 z-50 px-3 pt-3 sm:px-5" data-site-header>
   <div class="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-5 rounded-[1.35rem] border border-white/75 bg-paper/72 px-4 shadow-[0_12px_38px_rgba(25,55,47,0.12),inset_0_1px_0_rgba(255,255,255,0.8)] ring-1 ring-forest/5 backdrop-blur-2xl backdrop-saturate-150 transition-shadow duration-300 sm:px-6 lg:px-8">
     <a class="flex min-h-11 items-center" href={href('/')} aria-label="El Mercadito de Chiloé, inicio"><BrandLogo class="text-forest" /></a>
     <nav class="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
       {links.map(([route, label, icon]) => (
-        <a data-astro-prefetch="hover" class:list={[
+        <a data-astro-prefetch="viewport" class:list={[
           "group relative inline-flex min-h-11 items-center gap-2 overflow-hidden rounded-full px-3.5 py-2 text-sm font-bold text-forest transition-transform duration-250 ease-spring transform-gpu hover:scale-[1.03] active:scale-[0.96]",
           path === route ? "text-terracotta" : "hover:text-terracotta"
         ]} href={href(route)} aria-current={path === route ? 'page' : undefined}>
@@ -32,7 +32,7 @@ const href = (route: string) => `${base}${route === '/' ? '/' : `${route}/`}`;
       ))}
     </nav>
     <div class="flex items-center gap-2">
-      <a data-astro-prefetch="hover" class="hidden min-h-11 items-center gap-2 rounded-full bg-terracotta px-5 text-sm font-bold text-white transition-[transform,background-color] duration-250 ease-spring transform-gpu hover:scale-[1.03] hover:bg-terracotta-dark active:scale-[0.96] sm:inline-flex" href={href('/reservas')}>
+      <a data-astro-prefetch="viewport" class="hidden min-h-11 items-center gap-2 rounded-full bg-terracotta px-5 text-sm font-bold text-white transition-[transform,background-color] duration-250 ease-spring transform-gpu hover:scale-[1.03] hover:bg-terracotta-dark active:scale-[0.96] sm:inline-flex" href={href('/reservas')}>
         <span class="grid size-7 place-items-center rounded-full bg-white/15 transition-transform duration-250 ease-spring group-hover:scale-105"><Icon name="calendar" class="size-3.5" /></span>
         Reservas demo
       </a>
@@ -55,22 +55,84 @@ const href = (route: string) => `${base}${route === '/' ? '/' : `${route}/`}`;
       </a>
     </div>
   </nav>
+  <script>
+    const updateActiveHeaderLink = () => {
+      const pathname = window.location.pathname.replace(/\/$/, '') || '/';
+      const navLinks = document.querySelectorAll('header[data-site-header] nav a[href]');
+      navLinks.forEach((link) => {
+        if (!(link instanceof HTMLAnchorElement)) return;
+        const linkPath = new URL(link.href, window.location.origin).pathname.replace(/\/$/, '') || '/';
+        const isActive = linkPath === pathname;
+        if (isActive) {
+          link.classList.remove('text-forest', 'hover:text-terracotta');
+          link.classList.add('text-terracotta');
+          link.setAttribute('aria-current', 'page');
+          const bg = link.querySelector('span[aria-hidden="true"]');
+          if (bg) {
+            bg.classList.remove('opacity-0', 'group-hover:opacity-100');
+            bg.classList.add('opacity-100');
+          }
+        } else {
+          link.classList.remove('text-terracotta');
+          link.classList.add('text-forest', 'hover:text-terracotta');
+          link.removeAttribute('aria-current');
+          const bg = link.querySelector('span[aria-hidden="true"]');
+          if (bg) {
+            bg.classList.remove('opacity-100');
+            bg.classList.add('opacity-0', 'group-hover:opacity-100');
+          }
+        }
+      });
+    };
+
+    document.addEventListener('astro:page-load', updateActiveHeaderLink);
+  </script>
 </header>
 <script>
-  const header = document.querySelector('[data-site-header]');
-  const button = document.querySelector('[data-menu-button]');
-  const menu = document.querySelector('[data-mobile-menu]');
-  if (button instanceof HTMLButtonElement && menu instanceof HTMLElement) {
+  const initMenu = () => {
+    const controller = new AbortController();
+    const { signal } = controller;
+    const button = document.querySelector('[data-menu-button]');
+    const menu = document.querySelector('[data-mobile-menu]');
+    const header = document.querySelector('[data-site-header]');
+    if (!(button instanceof HTMLButtonElement) || !(menu instanceof HTMLElement) || !(header instanceof HTMLElement)) return;
+
+    const close = (restoreFocus = false) => {
+      menu.classList.add('hidden');
+      button.setAttribute('aria-expanded', 'false');
+      button.setAttribute('aria-label', 'Abrir menú');
+      document.body.classList.remove('overflow-hidden');
+      if (restoreFocus) button.focus();
+    };
+
     button.addEventListener('click', () => {
-      const isExpanded = button.getAttribute('aria-expanded') === 'true';
-      button.setAttribute('aria-expanded', String(!isExpanded));
-      menu.classList.toggle('hidden');
+      const open = button.getAttribute('aria-expanded') === 'true';
+      if (open) close();
+      else {
+        menu.classList.remove('hidden');
+        button.setAttribute('aria-expanded', 'true');
+        button.setAttribute('aria-label', 'Cerrar menú');
+        document.body.classList.add('overflow-hidden');
+      }
+    }, { signal });
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => close(), { signal });
     });
-  }
-  const onScroll = () => {
-    if (!(header instanceof HTMLElement)) return;
-    const isScrolled = window.scrollY > 20;
-    header.firstElementChild?.classList.toggle('shadow-[0_20px_45px_rgba(25,55,47,0.18)]', isScrolled);
+
+    document.addEventListener('pointerdown', (event) => {
+      if (button.getAttribute('aria-expanded') === 'true' && event.target instanceof Node && !header.contains(event.target)) {
+        close();
+      }
+    }, { signal });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+        close(true);
+      }
+    }, { signal });
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
+
+  document.addEventListener('astro:page-load', initMenu);
+  initMenu();
 </script>
