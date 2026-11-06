@@ -63,21 +63,18 @@ const structuredData = {
       opens: '13:00',
       closes: '16:30'
     }
-  ]
+  ],
+  sameAs: [restaurant.instagram, restaurant.maps, restaurant.originalSite]
 };
 ---
 <!doctype html>
-<html lang="es" class="scroll-smooth bg-paper selection:bg-yellow selection:text-forest">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#203b35" />
-    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
-    <link rel="manifest" href={`${base}/manifest.webmanifest`} />
-    <meta name="generator" content={Astro.generator} />
-    <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -86,15 +83,46 @@ const structuredData = {
     <style is:inline set:html={fontFaces}></style>
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
     <title>{title}</title>
+    <link rel="preload" href={`${base}/fonts/dm-400.ttf`} as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href={`${base}/fonts/dm-700.ttf`} as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href={`${base}/fonts/playfair-500.ttf`} as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href={`${base}/fonts/playfair-600.ttf`} as="font" type="font/ttf" crossorigin />
     <script is:inline>document.documentElement.classList.add('js')</script>
     <slot name="head" />
     <ClientRouter />
+    <style is:inline>
+      #nav-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#edc95a,#b84d2d);z-index:9999;width:0%;opacity:0;pointer-events:none;transition:width .2s ease-out,opacity .25s ease-out}
+    </style>
   </head>
   <body id="top" class="bg-paper text-forest antialiased min-h-screen flex flex-col">
+    <div id="nav-progress" transition:persist="nav-progress" aria-hidden="true"></div>
     <SiteHeader />
     <main id="contenido" class="flex-1 pb-16 lg:pb-0"><slot /></main>
     <SiteFooter />
     <MobileQuickActions />
+    <script>
+      const bar = document.getElementById('nav-progress');
+      document.addEventListener('astro:before-preparation', () => {
+        if (bar) {
+          bar.style.opacity = '1';
+          bar.style.width = '35%';
+        }
+      });
+      document.addEventListener('astro:after-preparation', () => {
+        if (bar) {
+          bar.style.width = '80%';
+        }
+      });
+      document.addEventListener('astro:page-load', () => {
+        if (bar) {
+          bar.style.width = '100%';
+          setTimeout(() => {
+            bar.style.opacity = '0';
+            setTimeout(() => { bar.style.width = '0%'; }, 250);
+          }, 120);
+        }
+      });
+    </script>
     <script>
       let revealObserver = null;
       const initReveal = () => {
