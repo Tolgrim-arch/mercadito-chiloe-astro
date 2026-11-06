@@ -19,17 +19,21 @@ const href = (route: string) => `${base}${route === '/' ? '/' : `${route}/`}`;
     <nav class="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
       {links.map(([route, label, icon]) => (
         <a class:list={[
-          "group inline-flex min-h-11 items-center gap-2 rounded-full px-3 py-2 text-sm font-bold transition-all duration-200 ease-spring transform-gpu hover:scale-[1.03] active:scale-[0.96] hover:bg-cream hover:text-terracotta",
-          path === route ? "bg-cream text-terracotta" : "text-forest"
+          "group relative inline-flex min-h-11 items-center gap-2 overflow-hidden rounded-full px-3.5 py-2 text-sm font-bold text-forest transition-transform duration-250 ease-spring transform-gpu hover:scale-[1.03] active:scale-[0.96]",
+          path === route ? "text-terracotta" : "hover:text-terracotta"
         ]} href={href(route)} aria-current={path === route ? 'page' : undefined}>
-          <span class="grid size-7 shrink-0 place-items-center rounded-full bg-current/8 transition-transform duration-200 ease-spring group-hover:scale-105"><Icon name={icon} class="size-3.5" /></span>
+          <span aria-hidden="true" class:list={[
+            "pointer-events-none absolute inset-0 -z-10 rounded-full bg-cream transition-opacity duration-300 ease-out",
+            path === route ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+          ]} />
+          <span class="grid size-7 shrink-0 place-items-center rounded-full bg-current/8 transition-transform duration-250 ease-spring group-hover:scale-105"><Icon name={icon} class="size-3.5" /></span>
           {label}
         </a>
       ))}
     </nav>
     <div class="flex items-center gap-2">
-      <a class="hidden min-h-11 items-center gap-2 rounded-full bg-terracotta px-5 text-sm font-bold text-white transition-all duration-200 ease-spring transform-gpu hover:scale-[1.03] hover:bg-terracotta-dark active:scale-[0.96] sm:inline-flex" href={href('/reservas')}>
-        <span class="grid size-7 place-items-center rounded-full bg-white/15 transition-transform duration-200 ease-spring group-hover:scale-105"><Icon name="calendar" class="size-3.5" /></span>
+      <a class="hidden min-h-11 items-center gap-2 rounded-full bg-terracotta px-5 text-sm font-bold text-white transition-[transform,background-color] duration-250 ease-spring transform-gpu hover:scale-[1.03] hover:bg-terracotta-dark active:scale-[0.96] sm:inline-flex" href={href('/reservas')}>
+        <span class="grid size-7 place-items-center rounded-full bg-white/15 transition-transform duration-250 ease-spring group-hover:scale-105"><Icon name="calendar" class="size-3.5" /></span>
         Reservas demo
       </a>
       <button class="grid size-11 place-items-center rounded-full border border-forest/20 lg:hidden" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
