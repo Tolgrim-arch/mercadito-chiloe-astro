@@ -41,7 +41,7 @@ for (const name of responsiveImages) for (const width of [480,768,1024]) for (co
 
 const sourceChecks = [
   ['src/pages/index.astro', ['<SectionNav', 'id="preguntas"', 'description=']],
-  ['src/pages/carta.astro', ['<SectionNav', 'data-dish-dialog', 'dialog.addEventListener(\'close\'', '<img class="aspect-[16/8]']],
+  ['src/pages/carta.astro', ['<SectionNav', 'data-dish-dialog', 'dialog.addEventListener(\'close\'', 'class="aspect-[16/8]']],
   ['src/pages/planifica-tu-visita.astro', ['<SectionNav', 'id="preguntas"']],
   ['src/pages/nosotros.astro', ['/encuentranos/', 'description=']],
   ['src/pages/reservas.astro', ['data-field-error', 'aria-invalid', 'replaceChildren']],

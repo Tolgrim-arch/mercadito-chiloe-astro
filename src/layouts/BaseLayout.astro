@@ -49,19 +49,19 @@ const structuredData = {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday'],
       opens: '13:00',
+      closes: '21:30'
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Friday'],
+      opens: '13:00',
       closes: '22:00'
     },
     {
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Friday', 'Saturday'],
-      opens: '13:00',
-      closes: '22:30'
-    },
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Sunday'],
-      opens: '13:00',
-      closes: '16:30'
+      dayOfWeek: ['Saturday'],
+      opens: '14:00',
+      closes: '22:00'
     }
   ],
   sameAs: [restaurant.instagram, restaurant.maps, restaurant.originalSite]
@@ -101,25 +101,27 @@ const structuredData = {
     <SiteFooter />
     <MobileQuickActions />
     <script>
-      const bar = document.getElementById('nav-progress');
       document.addEventListener('astro:before-preparation', () => {
+        const bar = document.getElementById('nav-progress');
         if (bar) {
           bar.style.opacity = '1';
-          bar.style.width = '35%';
+          bar.style.width = '40%';
         }
       });
       document.addEventListener('astro:after-preparation', () => {
+        const bar = document.getElementById('nav-progress');
         if (bar) {
-          bar.style.width = '80%';
+          bar.style.width = '85%';
         }
       });
       document.addEventListener('astro:page-load', () => {
+        const bar = document.getElementById('nav-progress');
         if (bar) {
           bar.style.width = '100%';
           setTimeout(() => {
             bar.style.opacity = '0';
-            setTimeout(() => { bar.style.width = '0%'; }, 250);
-          }, 120);
+            setTimeout(() => { bar.style.width = '0%'; }, 220);
+          }, 80);
         }
       });
     </script>

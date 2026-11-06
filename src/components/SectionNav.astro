@@ -9,7 +9,10 @@ const { items, label = 'Secciones de esta página' } = Astro.props;
   </div>
 </nav>
 <script>
+  let sectionObservers = [];
   const initSectionNavs = () => {
+    sectionObservers.forEach((obs) => obs.disconnect());
+    sectionObservers = [];
     document.querySelectorAll('[data-section-nav]:not([data-ready])').forEach((nav) => {
       if (!(nav instanceof HTMLElement)) return;
       nav.dataset.ready = '1';
@@ -27,6 +30,7 @@ const { items, label = 'Secciones de esta página' } = Astro.props;
         if (visible?.target.id) setActive(visible.target.id);
       }, { rootMargin: '-25% 0px -60% 0px', threshold: [0, .2, .5] });
       sections.forEach((section) => observer.observe(section));
+      sectionObservers.push(observer);
       const currentHash = window.location.hash.slice(1);
       const initialTarget = sections.find((s) => s.id === currentHash) || sections[0];
       setActive(initialTarget.id);

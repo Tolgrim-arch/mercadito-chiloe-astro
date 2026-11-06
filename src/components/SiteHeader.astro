@@ -18,7 +18,7 @@ const href = (route: string) => `${base}${route === '/' ? '/' : `${route}/`}`;
     <a class="flex min-h-11 items-center" href={href('/')} aria-label="El Mercadito de Chiloé, inicio"><BrandLogo class="text-forest" /></a>
     <nav class="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
       {links.map(([route, label, icon]) => (
-        <a data-astro-prefetch="viewport" class:list={[
+        <a data-astro-prefetch="load" class:list={[
           "group relative inline-flex min-h-11 items-center gap-2 overflow-hidden rounded-full px-3.5 py-2 text-sm font-bold text-forest transition-transform duration-250 ease-spring transform-gpu hover:scale-[1.03] active:scale-[0.96]",
           path === route ? "text-terracotta" : "hover:text-terracotta"
         ]} href={href(route)} aria-current={path === route ? 'page' : undefined}>
@@ -32,7 +32,7 @@ const href = (route: string) => `${base}${route === '/' ? '/' : `${route}/`}`;
       ))}
     </nav>
     <div class="flex items-center gap-2">
-      <a data-astro-prefetch="viewport" class="hidden min-h-11 items-center gap-2 rounded-full bg-terracotta px-5 text-sm font-bold text-white transition-[transform,background-color] duration-250 ease-spring transform-gpu hover:scale-[1.03] hover:bg-terracotta-dark active:scale-[0.96] sm:inline-flex" href={href('/reservas')}>
+      <a data-astro-prefetch="load" class="hidden min-h-11 items-center gap-2 rounded-full bg-terracotta px-5 text-sm font-bold text-white transition-[transform,background-color] duration-250 ease-spring transform-gpu hover:scale-[1.03] hover:bg-terracotta-dark active:scale-[0.96] sm:inline-flex" href={href('/reservas')}>
         <span class="grid size-7 place-items-center rounded-full bg-white/15 transition-transform duration-250 ease-spring group-hover:scale-105"><Icon name="calendar" class="size-3.5" /></span>
         Reservas demo
       </a>
@@ -56,27 +56,29 @@ const href = (route: string) => `${base}${route === '/' ? '/' : `${route}/`}`;
     </div>
   </nav>
   <script>
-    const updateActiveHeaderLink = () => {
-      const pathname = window.location.pathname.replace(/\/$/, '') || '/';
+    const setActiveHeaderPath = (targetPathname: string) => {
+      const normalizedTarget = targetPathname.replace(/\/$/, '') || '/';
       const navLinks = document.querySelectorAll('header[data-site-header] nav a[href]');
       navLinks.forEach((link) => {
         if (!(link instanceof HTMLAnchorElement)) return;
         const linkPath = new URL(link.href, window.location.origin).pathname.replace(/\/$/, '') || '/';
-        const isActive = linkPath === pathname;
+        const isActive = linkPath === normalizedTarget;
+        const bg = link.querySelector('span[aria-hidden="true"]');
         if (isActive) {
           link.classList.remove('text-forest', 'hover:text-terracotta');
           link.classList.add('text-terracotta');
           link.setAttribute('aria-current', 'page');
-          const bg = link.querySelector('span[aria-hidden="true"]');
           if (bg) {
             bg.classList.remove('opacity-0', 'group-hover:opacity-100');
             bg.classList.add('opacity-100');
           }
+          if (link.parentElement?.id === 'mobile-menu' || link.closest('#mobile-menu')) {
+            link.classList.add('bg-cream');
+          }
         } else {
-          link.classList.remove('text-terracotta');
+          link.classList.remove('text-terracotta', 'bg-cream');
           link.classList.add('text-forest', 'hover:text-terracotta');
           link.removeAttribute('aria-current');
-          const bg = link.querySelector('span[aria-hidden="true"]');
           if (bg) {
             bg.classList.remove('opacity-100');
             bg.classList.add('opacity-0', 'group-hover:opacity-100');
@@ -85,13 +87,27 @@ const href = (route: string) => `${base}${route === '/' ? '/' : `${route}/`}`;
       });
     };
 
-    document.addEventListener('astro:page-load', updateActiveHeaderLink);
+    document.addEventListener('click', (e) => {
+      const link = e.target instanceof Element ? e.target.closest('header[data-site-header] a[href]') : null;
+      if (link instanceof HTMLAnchorElement && link.origin === window.location.origin) {
+        setActiveHeaderPath(link.pathname);
+      }
+    });
+
+    document.addEventListener('astro:page-load', () => {
+      setActiveHeaderPath(window.location.pathname);
+    });
   </script>
 </header>
 <script>
+  let menuController = null;
   const initMenu = () => {
-    const controller = new AbortController();
-    const { signal } = controller;
+    if (menuController) {
+      menuController.abort();
+    }
+    menuController = new AbortController();
+    const { signal } = menuController;
+
     const button = document.querySelector('[data-menu-button]');
     const menu = document.querySelector('[data-mobile-menu]');
     const header = document.querySelector('[data-site-header]');

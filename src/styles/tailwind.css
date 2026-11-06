@@ -16,6 +16,7 @@
 
 html{scroll-behavior:smooth;scroll-padding-top:8.5rem}
 body{min-width:0}
+::view-transition-old(root),::view-transition-new(root){animation-duration:100ms;animation-timing-function:ease-out}
 ::selection{background:#edc95a;color:#203b35}
 [data-reveal]{opacity:1;transform:none;transition:opacity .38s ease,transform .38s ease}
 .js [data-reveal]:not([data-reveal-visible]){opacity:0;transform:translateY(12px)}
