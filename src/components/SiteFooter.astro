@@ -11,7 +11,7 @@ const nav = [
   ['Cómo llegar', '/encuentranos/']
 ] as const;
 ---
-<footer transition:persist="site-footer" data-reveal class="mt-auto w-full border-t border-forest/15 bg-paper/95 px-5 pt-8 pb-[max(1.75rem,env(safe-area-inset-bottom))] md:px-[5vw]">
+<footer data-reveal class="mt-auto w-full border-t border-forest/15 bg-paper/95 px-5 pt-8 pb-[max(1.75rem,env(safe-area-inset-bottom))] md:px-[5vw]">
   <div class="mx-auto max-w-[1390px]">
     <div class="flex flex-wrap items-center justify-between gap-4 border-b border-forest/15 pb-6">
       <a class="flex min-h-11 items-center" href={home} aria-label="El Mercadito de Chiloé, volver al inicio" data-scroll-home>
@@ -48,23 +48,3 @@ const nav = [
     </div>
   </div>
 </footer>
-<script>
-  const initFooterScroll = () => {
-    document.querySelectorAll('[data-scroll-home]').forEach((link) => {
-      if (!(link instanceof HTMLAnchorElement) || link.dataset.scrollReady) return;
-      link.dataset.scrollReady = 'true';
-      link.addEventListener('click', (event) => {
-        const target = new URL(link.href, window.location.href);
-        if (target.pathname !== window.location.pathname) return;
-        event.preventDefault();
-        window.history.replaceState({}, '', target.pathname);
-        window.scrollTo({
-          top: 0,
-          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
-        });
-      });
-    });
-  };
-  document.addEventListener('astro:page-load', initFooterScroll);
-  initFooterScroll();
-</script>
